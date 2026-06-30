@@ -3,196 +3,76 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>صالح الخليفي — مطور ويب</title>
+  <title>صالح الخليفي — مطور واجهات</title>
   <meta name="description" content="الصفحة الشخصية للمطور صالح الخليفي — مطور واجهات وتجارب مستخدم حديثة" />
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0f1724;
-      --card: rgba(255,255,255,0.04);
-      --glass: rgba(255,255,255,0.03);
+      --bg-dark:#0f1724;
       --accent:#7c3aed;
       --accent-2:#06b6d4;
-      --muted:rgba(255,255,255,0.65);
+      --muted:rgba(255,255,255,0.75);
       --glass-border: rgba(255,255,255,0.06);
-      --radius:14px;
-      --glass-blur:8px;
+      --radius:12px;
       --maxw:1100px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:"Cairo",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      font-family:"Cairo",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
       background:
-        radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent 8%),
-        radial-gradient(900px 500px at 90% 90%, rgba(6,182,212,0.08), transparent 8%),
-        var(--bg);
+        radial-gradient(900px 400px at 10% 10%, rgba(124,58,237,0.08), transparent 8%),
+        radial-gradient(700px 350px at 90% 90%, rgba(6,182,212,0.06), transparent 8%),
+        var(--bg-dark);
       color:#fff;
+      padding:20px;
+      display:flex;
+      justify-content:center;
       -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
-      padding:40px 20px;
-      display:flex;
-      justify-content:center;
-      align-items:flex-start;
     }
 
-    .wrap{
-      width:100%;
-      max-width:var(--maxw);
-      margin:0 auto;
+    .wrap{width:100%;max-width:var(--maxw);margin:0 auto}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px}
+    nav{display:flex;gap:8px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:600}
+    .controls{display:flex;gap:8px;align-items:center}
+
+    /* icon buttons */
+    .icon-btn{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;border:1px solid var(--glass-border);
+      background:transparent;color:var(--muted);text-decoration:none;font-weight:600;cursor:pointer;
     }
+    .icon-btn svg{width:18px;height:18px;flex-shrink:0}
 
-    header{
-      display:flex;
-      gap:16px;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:28px;
-    }
+    main{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:12px;border:1px solid var(--glass-border)}
+    .hero{display:flex;gap:14px;align-items:center}
+    .avatar{width:100px;height:100px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800}
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;color:var(--muted);font-weight:600}
 
-    .brand{
-      display:flex;
-      gap:14px;
-      align-items:center;
-    }
-    .logo{
-      width:64px;
-      height:64px;
-      border-radius:12px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      font-size:20px;
-      box-shadow:0 6px 30px rgba(12,12,20,0.6);
-    }
-    .brand h1{margin:0;font-size:18px;letter-spacing:0.6px}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
+    .projects{margin-top:14px;display:grid;gap:10px}
+    .project{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);cursor:pointer}
 
-    nav{display:flex;gap:10px;align-items:center}
-    nav a{
-      color:var(--muted);
-      text-decoration:none;
-      padding:8px 12px;
-      border-radius:10px;
-      transition:all .22s;
-      font-weight:600;
-      font-size:14px;
-    }
-    nav a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,255,255,0.04),transparent)}
+    .side{position:sticky;top:24px;display:flex;flex-direction:column;gap:12px}
+    .card{padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid var(--glass-border)}
 
-    .controls{display:flex;gap:10px;align-items:center}
-    .btn{
-      background:transparent;
-      border:1px solid var(--glass-border);
-      color:var(--muted);
-      padding:8px 12px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:600;
-      transition:all .18s;
-    }
-    .btn:hover{transform:translateY(-3px);color:#fff}
+    /* form */
+    .field{width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border);background:rgba(255,255,255,0.02);color:#fff;margin-bottom:8px;font-size:14px}
+    .small{font-size:13px;color:var(--muted)}
 
-    main{
-      display:grid;
-      grid-template-columns: 1fr 380px;
-      gap:24px;
-      align-items:start;
-    }
+    footer{text-align:center;color:var(--muted);margin-top:18px;font-size:13px}
 
-    /* Left column */
-    .panel{
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius:var(--radius);
-      padding:22px;
-      border:1px solid var(--glass-border);
-      backdrop-filter: blur(var(--glass-blur));
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-    }
-
-    .hero{
-      display:flex;
-      gap:18px;
-      align-items:center;
-    }
-    .avatar{
-      width:120px;height:120px;border-radius:18px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;align-items:center;justify-content:center;
-      font-size:36px;font-weight:800;box-shadow:0 8px 30px rgba(12,12,20,0.6);
-    }
-    .hero h2{margin:0;font-size:22px}
-    .hero p{margin:6px 0 0;color:var(--muted)}
-
-    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-    .tag{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
-
-    /* About */
-    .about{margin-top:18px;color:var(--muted);font-size:15px}
-    .about strong{color:#fff}
-
-    /* Projects */
-    .projects{margin-top:18px;display:grid;gap:12px}
-    .project{
-      display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:var(--card);
-      border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .18s, box-shadow .18s;
-    }
-    .project:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.6)}
-    .proj-thumb{
-      width:72px;height:56px;border-radius:10px;background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
-      display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted)
-    }
-    .proj-info h3{margin:0;font-size:15px}
-    .proj-info p{margin:6px 0 0;color:var(--muted);font-size:13px}
-
-    /* Right column */
-    .side{
-      position:sticky;top:40px;
-      display:flex;flex-direction:column;gap:14px;
-    }
-    .card-compact{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid var(--glass-border)}
-    .skills{display:flex;flex-wrap:wrap;gap:8px}
-    .skill{background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);padding:8px 10px;border-radius:10px;font-weight:600;color:var(--muted);font-size:13px}
-
-    /* Timeline */
-    .timeline{display:flex;flex-direction:column;gap:12px;margin-top:8px}
-    .step{display:flex;gap:12px;align-items:flex-start}
-    .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));margin-top:6px;flex:0 0 12px}
-    .step p{margin:0;color:var(--muted);font-size:14px}
-
-    /* Footer */
-    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
-
-    /* Modal */
-    .modal{
-      position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:60;
-    }
-    .modal.open{display:flex}
-    .modal-card{width:min(900px,96%);background:linear-gradient(180deg,#071028, #071226);padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 30px 80px rgba(2,6,23,0.7)}
-    .modal-card h3{margin:0 0 8px}
-    .modal-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
-    .modal-grid img{width:100%;border-radius:10px;object-fit:cover;height:220px}
-    .close{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
-
-    /* Responsive */
+    /* responsive */
     @media (max-width:980px){
       main{grid-template-columns:1fr}
       .side{position:static}
+      nav{display:none}
     }
-
-    /* small flourish */
-    .glow{
-      position:absolute;left:0;right:0;top:0;height:220px;pointer-events:none;
-      background:linear-gradient(180deg, rgba(124,58,237,0.06), transparent);
-      filter:blur(40px);mix-blend-mode:screen;border-radius:20px;opacity:0.9;
-    }
-
-    /* smooth scroll */
-    html{scroll-behavior:smooth}
   </style>
 </head>
 <body>
@@ -201,288 +81,227 @@
       <div class="brand">
         <div class="logo" aria-hidden="true">ص</div>
         <div>
-          <h1>صالح الخليفي</h1>
-          <p>مطور واجهات وتجارب مستخدم حديثة</p>
+          <h1 style="margin:0">صالح الخليفي</h1>
+          <p style="margin:0;font-size:13px;color:var(--muted)">مطور واجهات وتجارب مستخدم حديثة</p>
         </div>
       </div>
 
-      <nav>
-        <a href="#about">من أنا</a>
-        <a href="#projects">مشاريعي</a>
-        <a href="#plans">خططي المستقبلية</a>
-        <a href="#contact">تواصل</a>
-      </nav>
+      <div style="display:flex;align-items:center;gap:8px">
+        <nav aria-label="القسم الرئيسي">
+          <a href="#about">من أنا</a>
+          <a href="#projects">مشاريعي</a>
+          <a href="#plans">خططي</a>
+          <a href="#contact">تواصل</a>
+        </nav>
 
-      <div class="controls">
-        <button class="btn" id="themeToggle" title="تبديل الوضع">وضع داكن</button>
-        <a class="btn" href="#" id="githubLink" target="_blank" rel="noopener">GitHub</a>
+        <div class="controls" role="group" aria-label="روابط سريعة">
+          <!-- GitHub -->
+          <a class="icon-btn" href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.93 3.19 9.11 7.61 10.59.56.1.76-.24.76-.53 0-.26-.01-1.12-.02-2.03-3.09.67-3.74-1.49-3.74-1.49-.5-1.27-1.22-1.61-1.22-1.61-.99-.68.08-.67.08-.67 1.1.08 1.68 1.13 1.68 1.13.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .95-.3 3.12 1.15a10.8 10.8 0 0 1 2.84-.38c.96.01 1.93.13 2.84.38 2.17-1.45 3.12-1.15 3.12-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.51.39.34.73 1.02.73 2.06 0 1.49-.01 2.69-.01 3.06 0 .29.2.64.77.53 4.42-1.48 7.61-5.66 7.61-10.59C23.25 5.48 18.27.5 12 .5z"/></svg>
+            GitHub
+          </a>
+
+          <!-- Telegram -->
+          <a class="icon-btn" href="https://t.me/iSx3i" id="telegramLink" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.5 3.5L2.5 10.5c-.9.3-.9 1.2-.2 1.5l4.2 1.3 1.6 5.1c.3.9 1.1 1 1.6.6l2.6-2 3.9 2.9c.7.5 1.4.2 1.6-.6l3.1-15.4c.2-.9-.5-1.6-1.6-1.2z"/></svg>
+            Telegram
+          </a>
+
+          <!-- Email -->
+          <a class="icon-btn" href="mailto:questalyemen@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            questalyemen@gmail.com
+          </a>
+        </div>
       </div>
     </header>
 
     <main>
-      <section class="panel">
+      <section class="panel" id="mainPanel">
         <div class="hero">
           <div class="avatar" aria-hidden="true">صـ</div>
           <div>
-            <h2>صالح الخليفي</h2>
-            <p>مطور واجهات أمامية Frontend Developer — أبتكر تجارب رقمية أنيقة وسريعة</p>
+            <h2 style="margin:0">صالح الخليفي</h2>
+            <p style="margin:6px 0;color:var(--muted)">مطور واجهات أمامية Frontend Developer — أبتكر تجارب رقمية أنيقة وسريعة</p>
             <div class="tags" aria-hidden="true">
               <span class="tag">HTML</span>
               <span class="tag">CSS</span>
               <span class="tag">JavaScript</span>
               <span class="tag">React</span>
-              <span class="tag">UI/UX</span>
             </div>
           </div>
         </div>
 
-        <div id="about" class="about" style="margin-top:18px">
-          <p><strong>من أنا</strong> — أنا <strong>صالح الخليفي</strong> مطور واجهات مهتم بتصميم واجهات مستخدم عصرية، أركز على الأداء، سهولة الاستخدام، وتجربة بصرية متماسكة. أحب تحويل الأفكار إلى واجهات تفاعلية تعمل بسلاسة على كل الأجهزة.</p>
+        <div id="about" style="margin-top:14px">
+          <p style="color:var(--muted)"><strong>من أنا</strong> — أنا <strong>صالح الخليفي</strong> مطور واجهات مهتم بتصميم واجهات مستخدم عصرية، أركز على الأداء وسهولة الاستخدام.</p>
         </div>
 
-        <h3 style="margin-top:18px">أبرز مشاريعي</h3>
+        <h3 style="margin-top:14px">أبرز مشاريعي</h3>
         <div id="projects" class="projects" aria-live="polite">
-          <div class="project" data-title="لوحة تحكم ذكية" data-desc="لوحة تحكم تفاعلية لإدارة البيانات مع رسوم بيانية حية وأداء عالي." data-img="">
-            <div class="proj-thumb">D</div>
-            <div class="proj-info">
-              <h3>لوحة تحكم ذكية</h3>
-              <p>لوحة تحكم لإدارة البيانات مع رسوم بيانية وتصفية متقدمة.</p>
+          <div class="project" data-title="لوحة تحكم ذكية" data-desc="لوحة تحكم تفاعلية لإدارة البيانات مع رسوم بيانية حية.">
+            <div style="width:64px;height:48px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center">D</div>
+            <div>
+              <h4 style="margin:0">لوحة تحكم ذكية</h4>
+              <p style="margin:6px 0;color:var(--muted)">لوحة تحكم لإدارة البيانات مع رسوم بيانية وتصفية متقدمة.</p>
             </div>
           </div>
-
-          <div class="project" data-title="موقع محفظة" data-desc="موقع محفظة شخصي سريع مع تأثيرات CSS متقدمة وتجربة مستخدم محسنة." data-img="">
-            <div class="proj-thumb">P</div>
-            <div class="proj-info">
-              <h3>موقع محفظة</h3>
-              <p>عرض أعمالي مع تحميل كسول وصور محسنة وتجربة متجاوبة.</p>
-            </div>
-          </div>
-
-          <div class="project" data-title="مكوّنات واجهة قابلة لإعادة الاستخدام" data-desc="مكتبة مكونات UI مبنية بـ HTML/CSS/JS قابلة للتخصيص وسهلة الدمج." data-img="">
-            <div class="proj-thumb">C</div>
-            <div class="proj-info">
-              <h3>مكتبة مكونات UI</h3>
-              <p>مكونات قابلة لإعادة الاستخدام لتسريع تطوير الواجهات.</p>
+          <div class="project" data-title="موقع محفظة" data-desc="موقع محفظة شخصي سريع مع تأثيرات CSS متقدمة.">
+            <div style="width:64px;height:48px;border-radius:8px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center">P</div>
+            <div>
+              <h4 style="margin:0">موقع محفظة</h4>
+              <p style="margin:6px 0;color:var(--muted)">عرض أعمالي مع تحميل كسول وصور محسنة.</p>
             </div>
           </div>
         </div>
 
-        <h3 style="margin-top:18px">لماذا تختارني</h3>
-        <ul style="color:var(--muted);margin-top:8px">
-          <li>تصميم عصري مع اهتمام بالتفاصيل</li>
-          <li>كود نظيف وقابل للصيانة</li>
-          <li>تحسين الأداء وتجربة المستخدم</li>
-        </ul>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+          <!-- Download CV with icon -->
+          <a class="icon-btn" id="downloadCV" href="#" aria-label="تحميل السيرة">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 16l4-5h-3V4h-2v7H8l4 5zM6 20h12v2H6z"/></svg>
+            تحميل السيرة
+          </a>
 
-        <div style="display:flex;gap:10px;margin-top:16px">
-          <a class="btn" href="#contact">أرسل رسالة</a>
-          <button class="btn" id="downloadCV">تحميل السيرة</button>
+          <!-- View GitHub (icon only on small screens) -->
+          <a class="icon-btn" href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="عرض GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.93 3.19 9.11 7.61 10.59.56.1.76-.24.76-.53 0-.26-.01-1.12-.02-2.03-3.09.67-3.74-1.49-3.74-1.49-.5-1.27-1.22-1.61-1.22-1.61-.99-.68.08-.67.08-.67 1.1.08 1.68 1.13 1.68 1.13.97 1.66 2.55 1.18 3.17.9.1-.7.38-1.18.69-1.45-2.47-.28-5.07-1.24-5.07-5.52 0-1.22.44-2.22 1.16-3-.12-.28-.5-1.4.11-2.92 0 0 .95-.3 3.12 1.15a10.8 10.8 0 0 1 2.84-.38c.96.01 1.93.13 2.84.38 2.17-1.45 3.12-1.15 3.12-1.15.61 1.52.23 2.64.11 2.92.72.78 1.16 1.78 1.16 3 0 4.29-2.61 5.24-5.09 5.51.39.34.73 1.02.73 2.06 0 1.49-.01 2.69-.01 3.06 0 .29.2.64.77.53 4.42-1.48 7.61-5.66 7.61-10.59C23.25 5.48 18.27.5 12 .5z"/></svg>
+            GitHub
+          </a>
         </div>
-
       </section>
 
       <aside class="side">
-        <div class="card-compact panel">
+        <div class="card">
           <h4 style="margin:0 0 8px">المهارات</h4>
-          <div class="skills">
-            <span class="skill">HTML</span>
-            <span class="skill">CSS</span>
-            <span class="skill">JavaScript</span>
-            <span class="skill">Responsive</span>
-            <span class="skill">Accessibility</span>
-            <span class="skill">Performance</span>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="small">HTML</span>
+            <span class="small">CSS</span>
+            <span class="small">JavaScript</span>
+            <span class="small">Responsive</span>
           </div>
         </div>
 
-        <div class="card-compact panel">
-          <h4 style="margin:0 0 8px">خططي المستقبلية</h4>
-          <div id="plans" class="timeline">
-            <div class="step">
-              <div class="dot" aria-hidden="true"></div>
-              <div>
-                <p><strong>2026</strong> إطلاق مكتبة مكونات مفتوحة المصدر لواجهات عربية.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="dot" aria-hidden="true"></div>
-              <div>
-                <p><strong>2027</strong> بناء أدوات لتحسين أداء المواقع باللغة العربية.</p>
-              </div>
-            </div>
-            <div class="step">
-              <div class="dot" aria-hidden="true"></div>
-              <div>
-                <p><strong>طويل الأمد</strong> المشاركة في مشاريع تعليمية لتدريب مطورين جدد.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div id="contact" class="card-compact panel">
+        <div class="card" id="contact">
           <h4 style="margin:0 0 8px">تواصل</h4>
-          <p style="color:var(--muted);margin:0 0 12px">أرسل لي رسالة أو تابع مشاريعي على GitHub</p>
-          <form id="contactForm" onsubmit="return false" aria-label="نموذج تواصل">
-            <input type="text" id="name" placeholder="اسمك" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border;background:transparent;margin-bottom:8px;color:#fff;background:rgba(255,255,255,0.02)">
-            <input type="email" id="email" placeholder="بريدك الإلكتروني" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border;background:transparent;margin-bottom:8px;color:#fff;background:rgba(255,255,255,0.02)">
-            <textarea id="message" placeholder="رسالتك" rows="4" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border;background:transparent;margin-bottom:8px;color:#fff;background:rgba(255,255,255,0.02)"></textarea>
-            <div style="display:flex;gap:8px">
-              <button class="btn" id="sendBtn">إرسال</button>
-              <button class="btn" type="button" id="clearBtn">مسح</button>
-            </div>
-            <p id="formMsg" style="color:var(--muted);font-size:13px;margin-top:8px"></p>
-          </form>
-        </div>
+          <p class="small" style="margin:0 0 10px">أرسل رسالة مباشرة من هنا أو استخدم البريد أو تلغرام</p>
 
-        <div class="card-compact panel" style="text-align:center">
-          <p style="margin:0 0 8px;color:var(--muted)">روابط سريعة</p>
-          <div style="display:flex;gap:8px;justify-content:center">
-            <a class="btn" href="#" id="linkGit">GitHub</a>
-            <a class="btn" href="#" id="linkLinked">LinkedIn</a>
-          </div>
+          <!-- نموذج التواصل مرتبط بـ EmailJS (افتراضي) مع بديل mailto -->
+          <form id="contactForm">
+            <input class="field" type="text" id="name" name="from_name" placeholder="اسمك" required>
+            <input class="field" type="email" id="email" name="reply_to" placeholder="بريدك الإلكتروني" required>
+            <textarea class="field" id="message" name="message" placeholder="رسالتك" rows="4" required></textarea>
+
+            <div style="display:flex;gap:8px">
+              <!-- زر إرسال مع أيقونة -->
+              <button type="button" id="sendBtn" class="icon-btn" aria-label="إرسال الرسالة">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+                إرسال
+              </button>
+
+              <!-- زر مسح -->
+              <button type="button" id="clearBtn" class="icon-btn" aria-label="مسح الحقول">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                مسح
+              </button>
+
+              <!-- زر فتح تلغرام -->
+              <a class="icon-btn" href="https://t.me/iSx3i" target="_blank" rel="noopener" aria-label="فتح تلغرام">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.5 3.5L2.5 10.5c-.9.3-.9 1.2-.2 1.5l4.2 1.3 1.6 5.1c.3.9 1.1 1 1.6.6l2.6-2 3.9 2.9c.7.5 1.4.2 1.6-.6l3.1-15.4c.2-.9-.5-1.6-1.6-1.2z"/></svg>
+                Telegram
+              </a>
+            </div>
+
+            <p id="formMsg" class="small" style="margin-top:8px;color:var(--muted)"></p>
+          </form>
         </div>
       </aside>
     </main>
 
     <footer>
-      <p>© <strong>صالح الخليفي</strong> — مطور واجهات. تم تصميم الموقع لعرض المهارات والمشاريع.</p>
+      <p>© <strong>صالح الخليفي</strong></p>
     </footer>
   </div>
 
-  <!-- Modal template -->
-  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal-card" role="document">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <h3 id="modalTitle">تفاصيل المشروع</h3>
-        <button class="close" id="closeModal">إغلاق</button>
-      </div>
-      <div class="modal-grid">
-        <div>
-          <img id="modalImg" alt="صورة المشروع" src="" onerror="this.style.display='none'">
-          <p id="modalDesc" style="color:var(--muted);margin-top:12px"></p>
-        </div>
-        <div>
-          <h4>التقنيات المستخدمة</h4>
-          <div class="skills" style="margin-top:8px">
-            <span class="skill">HTML</span>
-            <span class="skill">CSS</span>
-            <span class="skill">JavaScript</span>
-            <span class="skill">Performance</span>
-          </div>
-
-          <div style="margin-top:18px">
-            <a class="btn" href="#" id="viewRepo" target="_blank">عرض المستودع</a>
-            <a class="btn" href="#" id="liveDemo" target="_blank">عرض مباشر</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="glow" aria-hidden="true"></div>
-
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
   <script>
-    // Basic interactive behaviors: theme toggle, project modal, contact form feedback
     (function(){
-      const themeBtn = document.getElementById('themeToggle');
-      const githubLink = document.getElementById('githubLink');
-      const linkGit = document.getElementById('linkGit');
-      const linkLinked = document.getElementById('linkLinked');
+      // === إعدادات EmailJS - استبدل القيم التالية بقيمك الحقيقية ===
+      // سجّل في https://www.emailjs.com ثم أنشئ Service, Template, وUser ID
+      const EMAILJS_USER_ID = 'YOUR_EMAILJS_USER_ID'; // مثال: user_xxx
+      const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID';   // مثال: service_xxx
+      const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // مثال: template_xxx
 
-      // Set your real links here
-      githubLink.href = 'https://github.com/your-username';
-      linkGit.href = githubLink.href;
-      linkLinked.href = 'https://www.linkedin.com/in/your-profile';
+      // تهيئة EmailJS إذا تم وضع user id
+      if(EMAILJS_USER_ID && EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID'){
+        emailjs.init(EMAILJS_USER_ID);
+      }
 
-      // Theme toggle (simple inversion)
-      let dark = true;
-      themeBtn.addEventListener('click', () => {
-        dark = !dark;
-        if(!dark){
-          document.documentElement.style.setProperty('--bg','#f7f9fc');
-          document.documentElement.style.setProperty('--card','rgba(2,6,23,0.03)');
-          document.documentElement.style.setProperty('--muted','rgba(2,6,23,0.7)');
-          document.documentElement.style.setProperty('--glass-border','rgba(2,6,23,0.06)');
-          document.body.style.color = '#071226';
-          themeBtn.textContent = 'وضع فاتح';
-        } else {
-          document.documentElement.style.removeProperty('--bg');
-          document.documentElement.style.removeProperty('--card');
-          document.documentElement.style.removeProperty('--muted');
-          document.documentElement.style.removeProperty('--glass-border');
-          document.body.style.color = '#fff';
-          themeBtn.textContent = 'وضع داكن';
-        }
-      });
-
-      // Projects modal
-      const projects = document.querySelectorAll('.project');
-      const modal = document.getElementById('modal');
-      const modalTitle = document.getElementById('modalTitle');
-      const modalDesc = document.getElementById('modalDesc');
-      const modalImg = document.getElementById('modalImg');
-      const closeModal = document.getElementById('closeModal');
-      const viewRepo = document.getElementById('viewRepo');
-      const liveDemo = document.getElementById('liveDemo');
-
-      projects.forEach(p => {
-        p.addEventListener('click', () => {
-          const title = p.dataset.title || 'مشروع';
-          const desc = p.dataset.desc || 'تفاصيل المشروع غير متوفرة.';
-          const img = p.dataset.img || '';
-          modalTitle.textContent = title;
-          modalDesc.textContent = desc;
-          if(img){ modalImg.src = img; modalImg.style.display = 'block'; } else { modalImg.style.display = 'none'; }
-          // placeholders for repo/demo
-          viewRepo.href = '#';
-          liveDemo.href = '#';
-          modal.classList.add('open');
-          modal.setAttribute('aria-hidden','false');
-        });
-      });
-
-      closeModal.addEventListener('click', () => {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden','true');
-      });
-      modal.addEventListener('click', (e) => {
-        if(e.target === modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
-      });
-
-      // Contact form (local feedback only)
       const contactForm = document.getElementById('contactForm');
       const sendBtn = document.getElementById('sendBtn');
       const clearBtn = document.getElementById('clearBtn');
       const formMsg = document.getElementById('formMsg');
 
-      sendBtn.addEventListener('click', () => {
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const message = document.getElementById('message').value.trim();
-        if(!name || !email || !message){
-          formMsg.textContent = 'يرجى ملء جميع الحقول';
-          return;
-        }
-        // Simulate send
-        formMsg.textContent = 'تم استلام رسالتك شكراً لك — سأرد قريباً';
-        contactForm.reset();
-      });
-
+      // وظيفة مسح الحقول
       clearBtn.addEventListener('click', () => {
         contactForm.reset();
         formMsg.textContent = '';
       });
 
-      // Download CV placeholder
-      const downloadCV = document.getElementById('downloadCV');
-      downloadCV.addEventListener('click', () => {
-        // Create a simple CV text file on the fly
+      // إرسال النموذج
+      sendBtn.addEventListener('click', function(){
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+
+        if(!name || !email || !message){
+          formMsg.textContent = 'يرجى ملء جميع الحقول';
+          return;
+        }
+
+        // إذا تم إعداد EmailJS فعلياً، استخدمه لإرسال الرسالة بدون فتح عميل البريد
+        if(EMAILJS_USER_ID && EMAILJS_USER_ID !== 'YOUR_EMAILJS_USER_ID' &&
+           EMAILJS_SERVICE_ID && EMAILJS_SERVICE_ID !== 'YOUR_SERVICE_ID' &&
+           EMAILJS_TEMPLATE_ID && EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID'){
+
+          formMsg.textContent = 'جارٍ إرسال الرسالة...';
+          // إرسال باستخدام emailjs.sendForm
+          emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, '#contactForm')
+            .then(function(response) {
+              formMsg.textContent = 'تم إرسال الرسالة بنجاح. شكراً لك';
+              contactForm.reset();
+            }, function(error) {
+              console.error('EmailJS error:', error);
+              formMsg.textContent = 'حدث خطأ أثناء الإرسال. سيتم فتح عميل البريد كبديل';
+              // بديل: افتح mailto مع ملء الحقول
+              openMailClient(name, email, message);
+            });
+
+        } else {
+          // إذا لم يتم إعداد EmailJS، افتح عميل البريد كبديل
+          formMsg.textContent = 'فتح عميل البريد لإرسال الرسالة...';
+          openMailClient(name, email, message);
+        }
+      });
+
+      // دالة لفتح mailto كبديل
+      function openMailClient(name, email, message){
+        const subject = encodeURIComponent('رسالة من موقعك الشخصي: ' + name);
+        const body = encodeURIComponent('الاسم: ' + name + '\\nالبريد: ' + email + '\\n\\n' + message);
+        const mailto = 'mailto:questalyemen@gmail.com?subject=' + subject + '&body=' + body;
+        window.location.href = mailto;
+      }
+
+      // Download CV (نفس السلوك السابق)
+      document.getElementById('downloadCV').addEventListener('click', function(e){
+        e.preventDefault();
         const cvText = [
           'السيرة الذاتية - صالح الخليفي',
           '',
           'مطور واجهات Frontend Developer',
           'المهارات: HTML, CSS, JavaScript, React, Performance, Accessibility',
           '',
-          'للتواصل: your-email@example.com'
+          'البريد: questalyemen@gmail.com',
+          'تلغرام: @iSx3i'
         ].join('\\n');
         const blob = new Blob([cvText], {type:'text/plain'});
         const url = URL.createObjectURL(blob);
@@ -495,20 +314,12 @@
         URL.revokeObjectURL(url);
       });
 
-      // Small accessibility: focus trap for modal (basic)
-      document.addEventListener('keydown', (e) => {
-        if(e.key === 'Escape' && modal.classList.contains('open')) {
-          modal.classList.remove('open');
-          modal.setAttribute('aria-hidden','true');
-        }
-      });
-
-      // Smooth reveal for projects
-      window.addEventListener('load', () => {
-        projects.forEach((p,i) => {
-          p.style.opacity = 0;
-          p.style.transform = 'translateY(10px)';
-          setTimeout(()=>{ p.style.transition='all .5s cubic-bezier(.2,.9,.2,1)'; p.style.opacity=1; p.style.transform='translateY(0)'; }, 120*i);
+      // Projects modal basic behavior (اختياري)
+      document.querySelectorAll('.project').forEach(p => {
+        p.addEventListener('click', () => {
+          const title = p.dataset.title || 'مشروع';
+          const desc = p.dataset.desc || '';
+          alert(title + '\\n\\n' + desc);
         });
       });
 
