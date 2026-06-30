@@ -1,98 +1,518 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="google-site-verification" content="OctOSGSWrLv4vuAtt9AJdcCh1JNsxFY5Ee8qZxI16Gg" />
-    
-    <title>عداد رمضان 2027 | Ramadan 2027 Countdown</title>
-    <meta name="description" content="تعرف على الوقت المتبقي بالضبط بالأيام والساعات لرمضان 2027. Countdown timer showing how many days and hours left until Ramadan 2027.">
-    <meta name="keywords" content="رمضان, عداد رمضان, كم متبقي لرمضان, رمضان 2027, موعد رمضان, Ramadan, Ramadan 2027, Ramadan countdown, days until Ramadan">
-    
-    <meta property="og:title" content="عداد رمضان 2027 | Ramadan 2027 Countdown">
-    <meta property="og:description" content="عداد تنازلي ذكي ومباشر لحساب الوقت المتبقي لرمضان باللغتين وبدقة حية.">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
-        body { background-color: #0b0d16; color: #fff; min-height: 100vh; padding: 15px; display: flex; flex-direction: column; align-items: center; }
-        
-        .container { width: 100%; max-width: 600px; text-align: center; margin-top: 20px; }
-        h1 { font-size: 22px; margin-bottom: 5px; color: #fff; }
-        h2 { font-size: 15px; margin-bottom: 20px; color: #00ffcc; font-weight: 700; letter-spacing: 0.5px; }
-        
-        /* العداد التنازلي */
-        .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
-        .box { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 15px 5px; }
-        .num { display: block; font-size: 32px; font-weight: 900; color: #00ffcc; text-shadow: 0 0 10px rgba(0, 255, 204, 0.4); }
-        .label { font-size: 12px; color: #a0aec0; margin-top: 5px; }
-        
-        /* 💰 أماكن الإعلانات المعتمدة */
-        .ad-space { background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 20px; margin: 20px 0; font-size: 13px; color: #a0aec0; display: flex; justify-content: center; align-items: center; min-height: 70px; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>صالح الخليفي — مطور ويب</title>
+  <meta name="description" content="الصفحة الشخصية للمطور صالح الخليفي — مطور واجهات وتجارب مستخدم حديثة" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card: rgba(255,255,255,0.04);
+      --glass: rgba(255,255,255,0.03);
+      --accent:#7c3aed;
+      --accent-2:#06b6d4;
+      --muted:rgba(255,255,255,0.65);
+      --glass-border: rgba(255,255,255,0.06);
+      --radius:14px;
+      --glass-blur:8px;
+      --maxw:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Cairo",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:
+        radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent 8%),
+        radial-gradient(900px 500px at 90% 90%, rgba(6,182,212,0.08), transparent 8%),
+        var(--bg);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      padding:40px 20px;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+    }
+
+    .wrap{
+      width:100%;
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+
+    header{
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:28px;
+    }
+
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .logo{
+      width:64px;
+      height:64px;
+      border-radius:12px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      font-size:20px;
+      box-shadow:0 6px 30px rgba(12,12,20,0.6);
+    }
+    .brand h1{margin:0;font-size:18px;letter-spacing:0.6px}
+    .brand p{margin:0;font-size:12px;color:var(--muted)}
+
+    nav{display:flex;gap:10px;align-items:center}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:10px;
+      transition:all .22s;
+      font-weight:600;
+      font-size:14px;
+    }
+    nav a:hover{color:#fff;background:linear-gradient(90deg,rgba(255,255,255,0.04),transparent)}
+
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{
+      background:transparent;
+      border:1px solid var(--glass-border);
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .18s;
+    }
+    .btn:hover{transform:translateY(-3px);color:#fff}
+
+    main{
+      display:grid;
+      grid-template-columns: 1fr 380px;
+      gap:24px;
+      align-items:start;
+    }
+
+    /* Left column */
+    .panel{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:22px;
+      border:1px solid var(--glass-border);
+      backdrop-filter: blur(var(--glass-blur));
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+    }
+
+    .hero{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+    .avatar{
+      width:120px;height:120px;border-radius:18px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;
+      font-size:36px;font-weight:800;box-shadow:0 8px 30px rgba(12,12,20,0.6);
+    }
+    .hero h2{margin:0;font-size:22px}
+    .hero p{margin:6px 0 0;color:var(--muted)}
+
+    .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .tag{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:999px;font-size:13px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+    /* About */
+    .about{margin-top:18px;color:var(--muted);font-size:15px}
+    .about strong{color:#fff}
+
+    /* Projects */
+    .projects{margin-top:18px;display:grid;gap:12px}
+    .project{
+      display:flex;gap:12px;align-items:center;padding:12px;border-radius:12px;background:var(--card);
+      border:1px solid rgba(255,255,255,0.03);cursor:pointer;transition:transform .18s, box-shadow .18s;
+    }
+    .project:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,23,0.6)}
+    .proj-thumb{
+      width:72px;height:56px;border-radius:10px;background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--muted)
+    }
+    .proj-info h3{margin:0;font-size:15px}
+    .proj-info p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+    /* Right column */
+    .side{
+      position:sticky;top:40px;
+      display:flex;flex-direction:column;gap:14px;
+    }
+    .card-compact{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid var(--glass-border)}
+    .skills{display:flex;flex-wrap:wrap;gap:8px}
+    .skill{background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent);padding:8px 10px;border-radius:10px;font-weight:600;color:var(--muted);font-size:13px}
+
+    /* Timeline */
+    .timeline{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+    .step{display:flex;gap:12px;align-items:flex-start}
+    .dot{width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));margin-top:6px;flex:0 0 12px}
+    .step p{margin:0;color:var(--muted);font-size:14px}
+
+    /* Footer */
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* Modal */
+    .modal{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.6);z-index:60;
+    }
+    .modal.open{display:flex}
+    .modal-card{width:min(900px,96%);background:linear-gradient(180deg,#071028, #071226);padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 30px 80px rgba(2,6,23,0.7)}
+    .modal-card h3{margin:0 0 8px}
+    .modal-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+    .modal-grid img{width:100%;border-radius:10px;object-fit:cover;height:220px}
+    .close{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
+
+    /* Responsive */
+    @media (max-width:980px){
+      main{grid-template-columns:1fr}
+      .side{position:static}
+    }
+
+    /* small flourish */
+    .glow{
+      position:absolute;left:0;right:0;top:0;height:220px;pointer-events:none;
+      background:linear-gradient(180deg, rgba(124,58,237,0.06), transparent);
+      filter:blur(40px);mix-blend-mode:screen;border-radius:20px;opacity:0.9;
+    }
+
+    /* smooth scroll */
+    html{scroll-behavior:smooth}
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true">ص</div>
+        <div>
+          <h1>صالح الخليفي</h1>
+          <p>مطور واجهات وتجارب مستخدم حديثة</p>
+        </div>
+      </div>
 
-    <div class="container">
-        
-        <div class="ad-space">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : '7a6c12bffef5feeda4fa41eeedb6fb6f',
-                    'format' : 'iframe',
-                    'height' : 60,
-                    'width' : 468,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="https://www.highperformanceformat.com/7a6c12bffef5feeda4fa41eeedb6fb6f/invoke.js"></script>
+      <nav>
+        <a href="#about">من أنا</a>
+        <a href="#projects">مشاريعي</a>
+        <a href="#plans">خططي المستقبلية</a>
+        <a href="#contact">تواصل</a>
+      </nav>
+
+      <div class="controls">
+        <button class="btn" id="themeToggle" title="تبديل الوضع">وضع داكن</button>
+        <a class="btn" href="#" id="githubLink" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="hero">
+          <div class="avatar" aria-hidden="true">صـ</div>
+          <div>
+            <h2>صالح الخليفي</h2>
+            <p>مطور واجهات أمامية Frontend Developer — أبتكر تجارب رقمية أنيقة وسريعة</p>
+            <div class="tags" aria-hidden="true">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">React</span>
+              <span class="tag">UI/UX</span>
+            </div>
+          </div>
         </div>
 
-        <h1>🌙 المتبقي على شهر رمضان المبارك 2027</h1>
-        <h2>Ramadan 2027 Countdown Timer</h2>
-        
-        <div class="countdown">
-            <div class="box"><span class="num" id="days">00</span><span class="label">يوم</span></div>
-            <div class="box"><span class="num" id="hours">00</span><span class="label">ساعة</span></div>
-            <div class="box"><span class="num" id="minutes">00</span><span class="label">دقيقة</span></div>
-            <div class="box"><span class="num" id="seconds">00</span><span class="label">ثانية</span></div>
+        <div id="about" class="about" style="margin-top:18px">
+          <p><strong>من أنا</strong> — أنا <strong>صالح الخليفي</strong> مطور واجهات مهتم بتصميم واجهات مستخدم عصرية، أركز على الأداء، سهولة الاستخدام، وتجربة بصرية متماسكة. أحب تحويل الأفكار إلى واجهات تفاعلية تعمل بسلاسة على كل الأجهزة.</p>
         </div>
 
-        <div class="ad-space" style="min-height: 260px;">
-            <script type="text/javascript">
-                atOptions = {
-                    'key' : 'cff735b1814f88521c114515ce9de41c',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                };
-            </script>
-            <script type="text/javascript" src="https://www.highperformanceformat.com/cff735b1814f88521c114515ce9de41c/invoke.js"></script>
+        <h3 style="margin-top:18px">أبرز مشاريعي</h3>
+        <div id="projects" class="projects" aria-live="polite">
+          <div class="project" data-title="لوحة تحكم ذكية" data-desc="لوحة تحكم تفاعلية لإدارة البيانات مع رسوم بيانية حية وأداء عالي." data-img="">
+            <div class="proj-thumb">D</div>
+            <div class="proj-info">
+              <h3>لوحة تحكم ذكية</h3>
+              <p>لوحة تحكم لإدارة البيانات مع رسوم بيانية وتصفية متقدمة.</p>
+            </div>
+          </div>
+
+          <div class="project" data-title="موقع محفظة" data-desc="موقع محفظة شخصي سريع مع تأثيرات CSS متقدمة وتجربة مستخدم محسنة." data-img="">
+            <div class="proj-thumb">P</div>
+            <div class="proj-info">
+              <h3>موقع محفظة</h3>
+              <p>عرض أعمالي مع تحميل كسول وصور محسنة وتجربة متجاوبة.</p>
+            </div>
+          </div>
+
+          <div class="project" data-title="مكوّنات واجهة قابلة لإعادة الاستخدام" data-desc="مكتبة مكونات UI مبنية بـ HTML/CSS/JS قابلة للتخصيص وسهلة الدمج." data-img="">
+            <div class="proj-thumb">C</div>
+            <div class="proj-info">
+              <h3>مكتبة مكونات UI</h3>
+              <p>مكونات قابلة لإعادة الاستخدام لتسريع تطوير الواجهات.</p>
+            </div>
+          </div>
         </div>
 
+        <h3 style="margin-top:18px">لماذا تختارني</h3>
+        <ul style="color:var(--muted);margin-top:8px">
+          <li>تصميم عصري مع اهتمام بالتفاصيل</li>
+          <li>كود نظيف وقابل للصيانة</li>
+          <li>تحسين الأداء وتجربة المستخدم</li>
+        </ul>
+
+        <div style="display:flex;gap:10px;margin-top:16px">
+          <a class="btn" href="#contact">أرسل رسالة</a>
+          <button class="btn" id="downloadCV">تحميل السيرة</button>
+        </div>
+
+      </section>
+
+      <aside class="side">
+        <div class="card-compact panel">
+          <h4 style="margin:0 0 8px">المهارات</h4>
+          <div class="skills">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Responsive</span>
+            <span class="skill">Accessibility</span>
+            <span class="skill">Performance</span>
+          </div>
+        </div>
+
+        <div class="card-compact panel">
+          <h4 style="margin:0 0 8px">خططي المستقبلية</h4>
+          <div id="plans" class="timeline">
+            <div class="step">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <p><strong>2026</strong> إطلاق مكتبة مكونات مفتوحة المصدر لواجهات عربية.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <p><strong>2027</strong> بناء أدوات لتحسين أداء المواقع باللغة العربية.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot" aria-hidden="true"></div>
+              <div>
+                <p><strong>طويل الأمد</strong> المشاركة في مشاريع تعليمية لتدريب مطورين جدد.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="contact" class="card-compact panel">
+          <h4 style="margin:0 0 8px">تواصل</h4>
+          <p style="color:var(--muted);margin:0 0 12px">أرسل لي رسالة أو تابع مشاريعي على GitHub</p>
+          <form id="contactForm" onsubmit="return false" aria-label="نموذج تواصل">
+            <input type="text" id="name" placeholder="اسمك" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border;background:transparent;margin-bottom:8px;color:#fff;background:rgba(255,255,255,0.02)">
+            <input type="email" id="email" placeholder="بريدك الإلكتروني" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border;background:transparent;margin-bottom:8px;color:#fff;background:rgba(255,255,255,0.02)">
+            <textarea id="message" placeholder="رسالتك" rows="4" style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border;background:transparent;margin-bottom:8px;color:#fff;background:rgba(255,255,255,0.02)"></textarea>
+            <div style="display:flex;gap:8px">
+              <button class="btn" id="sendBtn">إرسال</button>
+              <button class="btn" type="button" id="clearBtn">مسح</button>
+            </div>
+            <p id="formMsg" style="color:var(--muted);font-size:13px;margin-top:8px"></p>
+          </form>
+        </div>
+
+        <div class="card-compact panel" style="text-align:center">
+          <p style="margin:0 0 8px;color:var(--muted)">روابط سريعة</p>
+          <div style="display:flex;gap:8px;justify-content:center">
+            <a class="btn" href="#" id="linkGit">GitHub</a>
+            <a class="btn" href="#" id="linkLinked">LinkedIn</a>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p>© <strong>صالح الخليفي</strong> — مطور واجهات. تم تصميم الموقع لعرض المهارات والمشاريع.</p>
+    </footer>
+  </div>
+
+  <!-- Modal template -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h3 id="modalTitle">تفاصيل المشروع</h3>
+        <button class="close" id="closeModal">إغلاق</button>
+      </div>
+      <div class="modal-grid">
+        <div>
+          <img id="modalImg" alt="صورة المشروع" src="" onerror="this.style.display='none'">
+          <p id="modalDesc" style="color:var(--muted);margin-top:12px"></p>
+        </div>
+        <div>
+          <h4>التقنيات المستخدمة</h4>
+          <div class="skills" style="margin-top:8px">
+            <span class="skill">HTML</span>
+            <span class="skill">CSS</span>
+            <span class="skill">JavaScript</span>
+            <span class="skill">Performance</span>
+          </div>
+
+          <div style="margin-top:18px">
+            <a class="btn" href="#" id="viewRepo" target="_blank">عرض المستودع</a>
+            <a class="btn" href="#" id="liveDemo" target="_blank">عرض مباشر</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        // العداد التنازلي لرمضان (8 فبراير 2027 فلكياً)
-        const targetTime = new Date("Feb 8, 2027 00:00:00").getTime();
+  <div class="glow" aria-hidden="true"></div>
 
-        setInterval(() => {
-            const now = new Date().getTime();
-            const diff = targetTime - now;
+  <script>
+    // Basic interactive behaviors: theme toggle, project modal, contact form feedback
+    (function(){
+      const themeBtn = document.getElementById('themeToggle');
+      const githubLink = document.getElementById('githubLink');
+      const linkGit = document.getElementById('linkGit');
+      const linkLinked = document.getElementById('linkLinked');
 
-            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((diff % (1000 * 60)) / 1000);
+      // Set your real links here
+      githubLink.href = 'https://github.com/your-username';
+      linkGit.href = githubLink.href;
+      linkLinked.href = 'https://www.linkedin.com/in/your-profile';
 
-            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
-            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
-            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
-            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
-        }, 1000);
-    </script>
+      // Theme toggle (simple inversion)
+      let dark = true;
+      themeBtn.addEventListener('click', () => {
+        dark = !dark;
+        if(!dark){
+          document.documentElement.style.setProperty('--bg','#f7f9fc');
+          document.documentElement.style.setProperty('--card','rgba(2,6,23,0.03)');
+          document.documentElement.style.setProperty('--muted','rgba(2,6,23,0.7)');
+          document.documentElement.style.setProperty('--glass-border','rgba(2,6,23,0.06)');
+          document.body.style.color = '#071226';
+          themeBtn.textContent = 'وضع فاتح';
+        } else {
+          document.documentElement.style.removeProperty('--bg');
+          document.documentElement.style.removeProperty('--card');
+          document.documentElement.style.removeProperty('--muted');
+          document.documentElement.style.removeProperty('--glass-border');
+          document.body.style.color = '#fff';
+          themeBtn.textContent = 'وضع داكن';
+        }
+      });
+
+      // Projects modal
+      const projects = document.querySelectorAll('.project');
+      const modal = document.getElementById('modal');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalDesc = document.getElementById('modalDesc');
+      const modalImg = document.getElementById('modalImg');
+      const closeModal = document.getElementById('closeModal');
+      const viewRepo = document.getElementById('viewRepo');
+      const liveDemo = document.getElementById('liveDemo');
+
+      projects.forEach(p => {
+        p.addEventListener('click', () => {
+          const title = p.dataset.title || 'مشروع';
+          const desc = p.dataset.desc || 'تفاصيل المشروع غير متوفرة.';
+          const img = p.dataset.img || '';
+          modalTitle.textContent = title;
+          modalDesc.textContent = desc;
+          if(img){ modalImg.src = img; modalImg.style.display = 'block'; } else { modalImg.style.display = 'none'; }
+          // placeholders for repo/demo
+          viewRepo.href = '#';
+          liveDemo.href = '#';
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden','false');
+        });
+      });
+
+      closeModal.addEventListener('click', () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden','true');
+      });
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) { modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); }
+      });
+
+      // Contact form (local feedback only)
+      const contactForm = document.getElementById('contactForm');
+      const sendBtn = document.getElementById('sendBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const formMsg = document.getElementById('formMsg');
+
+      sendBtn.addEventListener('click', () => {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        if(!name || !email || !message){
+          formMsg.textContent = 'يرجى ملء جميع الحقول';
+          return;
+        }
+        // Simulate send
+        formMsg.textContent = 'تم استلام رسالتك شكراً لك — سأرد قريباً';
+        contactForm.reset();
+      });
+
+      clearBtn.addEventListener('click', () => {
+        contactForm.reset();
+        formMsg.textContent = '';
+      });
+
+      // Download CV placeholder
+      const downloadCV = document.getElementById('downloadCV');
+      downloadCV.addEventListener('click', () => {
+        // Create a simple CV text file on the fly
+        const cvText = [
+          'السيرة الذاتية - صالح الخليفي',
+          '',
+          'مطور واجهات Frontend Developer',
+          'المهارات: HTML, CSS, JavaScript, React, Performance, Accessibility',
+          '',
+          'للتواصل: your-email@example.com'
+        ].join('\\n');
+        const blob = new Blob([cvText], {type:'text/plain'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Saleh-AlKhalifi-CV.txt';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+
+      // Small accessibility: focus trap for modal (basic)
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && modal.classList.contains('open')) {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden','true');
+        }
+      });
+
+      // Smooth reveal for projects
+      window.addEventListener('load', () => {
+        projects.forEach((p,i) => {
+          p.style.opacity = 0;
+          p.style.transform = 'translateY(10px)';
+          setTimeout(()=>{ p.style.transition='all .5s cubic-bezier(.2,.9,.2,1)'; p.style.opacity=1; p.style.transform='translateY(0)'; }, 120*i);
+        });
+      });
+
+    })();
+  </script>
 </body>
 </html>
