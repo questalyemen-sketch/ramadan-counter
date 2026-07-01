@@ -1,626 +1,610 @@
+
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صالح الخليفي - مطور ويب</title>
-    <!-- هنا سنضع أكواد CSS الخاصة بالموقع -->
-    <style>
-        /*
-        **********************************************************
-        *  قسم CSS: التنسيقات الأساسية، الخطوط، الألوان، التخطيط  *
-        **********************************************************
-        */
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>صالح الخليفي — مطور ويب</title>
 
-        :root {
-            --primary-color: #007bff; /* لون أساسي */
-            --primary-color-darker: #0056b3; /* لون أساسي أغمق للتأثيرات */
-            --secondary-color: #6c757d; /* لون ثانوي */
-            --background-light: #f4f7f6; /* خلفية وضع فاتح */
-            --text-light: #333333; /* نص وضع فاتح */
-            --background-dark: #1a1a1a; /* خلفية وضع داكن */
-            --text-dark: #e0e0e0; /* نص وضع داكن */
-            --card-bg-light: #ffffff;
-            --card-bg-dark: #2a2a2a;
-            --border-color-light: #e0e0e0;
-            --border-color-dark: #3a3a3a;
-            --shadow-light: rgba(0, 0, 0, 0.08);
-            --shadow-dark: rgba(0, 0, 0, 0.3);
-            --gradient-start-light: #e0f2f7;
-            --gradient-end-light: #d0e8f0;
-            --gradient-start-dark: #2c3e50;
-            --gradient-end-dark: #34495e;
-        }
+  <!-- خطوط Google (Cairo + Poppins) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
-        /* تنسيقات عامة للجسم والخطوط */
-        body {
-            font-family: 'Arial', sans-serif; /* يمكننا استخدام خطوط جوجل لاحقًا */
-            margin: 0;
-            padding: 0;
-            line-height: 1.7;
-            color: var(--text-light); /* نص افتراضي للوضع الفاتح */
-            background-color: var(--background-light); /* خلفية افتراضية للوضع الفاتح */
-            transition: background-color 0.4s ease, color 0.4s ease; /* للانتقال السلس بين الأوضاع */
-            direction: rtl; /* لغة عربية */
-            text-align: right; /* محاذاة النص لليمين */
-        }
+  <!-- Font Awesome (أيقونات) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous">
 
-        /* تنسيقات الوضع الداكن (سيتم تفعيلها بـ JavaScript) */
-        body.dark-mode {
-            color: var(--text-dark);
-            background-color: var(--background-dark);
-        }
-        body.dark-mode .card,
-        body.dark-mode section {
-            background-color: var(--card-bg-dark);
-            border-color: var(--border-color-dark);
-            box-shadow: 0 4px 15px var(--shadow-dark);
-        }
-        body.dark-mode #hero {
-            background: linear-gradient(135deg, var(--gradient-start-dark), var(--gradient-end-dark));
-            background-size: 400% 400%; /* للحركة */
-        }
-        body.dark-mode #typing-text {
-            color: var(--primary-color);
-        }
+  <style>
+    /* ===========================================================
+       متغيرات وثوابت الألوان والتأثيرات
+       =========================================================== */
+    :root{
+      --primary:#007bff;
+      --primary-600:#0056b3;
+      --muted:#6c757d;
+      --bg-light:#f4f7f8;
+      --bg-dark:#0f1720;
+      --card-light: rgba(255,255,255,0.55);
+      --card-dark: rgba(20,20,25,0.55);
+      --glass-border: rgba(255,255,255,0.18);
+      --glass-border-dark: rgba(255,255,255,0.08);
+      --blur: 10px;
+      --shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+      --shadow-strong: 0 12px 48px rgba(2,6,23,0.35);
+      --accent: #00c2a8;
+      --max-width: 1200px;
+    }
 
-        /* الهيكل الرئيسي للصفحة */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    /* ===========================================================
+       قواعد أساسية
+       =========================================================== */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Cairo', sans-serif;
+      background:var(--bg-light);
+      color:#111;
+      direction:rtl;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+      transition:background .35s ease,color .35s ease;
+    }
+    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
 
-        /* رأس الصفحة (Header) */
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1.5rem 0;
-            text-align: center;
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+    /* ===========================================================
+       رأس الصفحة
+       =========================================================== */
+    header{
+      background:linear-gradient(90deg,var(--primary),var(--primary-600));
+      color:#fff;padding:20px 0;border-bottom-left-radius:18px;border-bottom-right-radius:18px;
+      box-shadow: 0 6px 22px rgba(2,6,23,0.15);
+      position:sticky;top:0;z-index:60;
+    }
+    header .container{display:flex;align-items:center;justify-content:space-between;gap:15px}
+    header .brand{display:flex;align-items:center;gap:14px}
+    header h1{margin:0;font-family:'Poppins',sans-serif;font-size:1.45rem}
+    header p{margin:0;opacity:.95}
+    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
+    nav a{color:rgba(255,255,255,.95);text-decoration:none;padding:8px 12px;border-radius:12px;font-weight:700}
+    nav a:hover{background:rgba(255,255,255,.08);transform:translateY(-2px);transition:.18s}
 
-        header h1 {
-            margin: 0;
-            font-size: 3em;
-            letter-spacing: 1px;
-        }
+    /* ===========================================================
+       Hero (مقدمة) مع أشكال متحركة (parallax خفيف)
+       =========================================================== */
+    #hero{
+      margin-top:18px;
+      position:relative;
+      overflow:visible;
+      border-radius:14px;
+      padding:70px 20px;
+      color:#fff;
+      background: linear-gradient(135deg,#e0f2f7,#d0e8f0);
+      background-size:400% 400%;
+      animation:grad 16s ease infinite;
+      box-shadow:var(--shadow-strong);
+    }
+    #hero .container{display:block;text-align:center;position:relative;z-index:5}
+    #hero h2{font-size:2.4rem;margin:0 0 12px;font-family:'Poppins',sans-serif}
+    #hero p{font-size:1.2rem;margin:0 auto;max-width:920px}
+    #typing-text{font-weight:800;color:var(--primary);border-right:3px solid rgba(255,255,255,.9);padding-right:6px;animation:blink .8s step-end infinite}
 
-        header p {
-            font-size: 1.3em;
-            opacity: 0.9;
-        }
+    /* زخارف (shapes) تعمل parallax */
+    .hero-shapes{position:absolute;inset:0;pointer-events:none;z-index:2}
+    .shape{
+      position:absolute;opacity:.18;filter:blur(18px);transform:translateZ(0);
+      transition:transform .2s linear;
+    }
+    .shape.s1{width:260px;height:260px;border-radius:40%;background:linear-gradient(135deg,var(--accent),var(--primary));left:12%;top:-40px}
+    .shape.s2{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#ffd27a,#ff7ab6);right:8%;top:10%}
+    .shape.s3{width:120px;height:120px;border-radius:30%;background:linear-gradient(135deg,#8be3ff,#7b6bff);left:45%;bottom:-30px}
 
-        /* قسم التنقل (Navigation) */
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0 0;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
+    @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes blink{from,to{border-right-color:transparent}50%{border-right-color:rgba(255,255,255,.95)}}
 
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 25px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+    /* ===========================================================
+       Glass sections (الـ Glassmorphism)
+       =========================================================== */
+    .glass{
+      background:var(--card-light);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      border-radius:12px;
+      border:1px solid var(--glass-border);
+      box-shadow:var(--shadow);
+      padding:34px;
+      transition:all .4s ease;
+    }
+    /* dark mode glass overrides set later */
 
-        nav ul li a:hover {
-            background-color: var(--primary-color-darker);
-            transform: translateY(-2px);
-        }
+    /* ===========================================================
+       المهارات (Skills)
+       =========================================================== */
+    #skills{margin-top:28px}
+    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+    .skill-card{padding:22px;border-radius:10px;text-align:center;transition:transform .28s ease;display:flex;flex-direction:column;align-items:center;gap:12px}
+    .skill-card:hover{transform:translateY(-6px)}
+    .skill-icon{font-size:2.2rem;color:var(--primary);display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:12px;background:rgba(255,255,255,0.18);box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .skill-card h3{margin:0;font-family:'Poppins',sans-serif;color:var(--primary)}
+    .skill-desc{margin:0;color:#333;opacity:.9}
+    .progress{width:100%;height:12px;background:#e6e9ee;border-radius:999px;overflow:hidden;margin-top:8px}
+    .progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width 1s cubic-bezier(.2,.9,.2,1)}
 
-        /* الأقسام العامة */
-        section {
-            padding: 50px 0;
-            margin-bottom: 30px;
-            background-color: var(--card-bg-light); /* خلفية قسم افتراضية */
-            border-radius: 12px;
-            box-shadow: 0 4px 15px var(--shadow-light);
-            border: 1px solid var(--border-color-light);
-            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-        }
+    /* ===========================================================
+       المشاريع (Portfolio)
+       =========================================================== */
+    .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+    .project-card{display:flex;flex-direction:column;gap:8px;border-radius:12px;padding:18px;transition:transform .25s ease;cursor:default}
+    .project-card:hover{transform:translateY(-8px)}
+    .project-card h3{margin:0;font-family:'Poppins',sans-serif;color:var(--primary)}
+    .short-desc{color:#333}
+    .project-details{max-height:0;overflow:hidden;transition:max-height .6s ease;padding-top:0}
+    .project-card.expanded .project-details{padding-top:12px}
 
-        section h2 {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 40px;
-            font-size: 2.5em;
-            position: relative;
-            padding-bottom: 15px;
-        }
+    .details-links a{display:inline-block;margin-left:8px;padding:8px 12px;border-radius:8px;background:var(--primary);color:#fff;text-decoration:none}
 
-        section h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background-color: var(--secondary-color);
-            border-radius: 2px;
-        }
+    /* ===========================================================
+       نموذج التواصل (Contact)
+       =========================================================== */
+    #contact{margin-top:26px}
+    #contact form{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+    label{font-weight:700;color:var(--primary);display:block}
+    input[type="text"],input[type="email"],textarea{
+      width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);background:rgba(255,255,255,0.6);font-size:1rem;outline:none;transition:box-shadow .18s,border-color .18s
+    }
+    input:focus,textarea:focus{box-shadow:0 6px 20px rgba(0,0,0,.06);border-color:var(--primary)}
+    button[type="submit"]{align-self:flex-end;background:var(--primary);color:#fff;padding:12px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    button[type="submit"]:hover{background:var(--primary-600);transform:translateY(-3px)}
 
-        /* قسم حول المطور (About) */
-        #about p {
-            text-align: center;
-            font-size: 1.2em;
-            max-width: 900px;
-            margin: 0 auto;
-            color: var(--text-color);
-        }
+    #contact-message{display:none;padding:12px;border-radius:10px;text-align:center}
 
-        /* التذييل (Footer) */
-        footer {
-            text-align: center;
-            padding: 25px;
-            background-color: var(--primary-color);
-            color: white;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            margin-top: 40px;
-            font-size: 1em;
-            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        }
+    /* ===========================================================
+       Back to top & Floating CTA
+       =========================================================== */
+    .back-top{
+      position:fixed;left:18px;bottom:18px;background:var(--primary);color:#fff;padding:12px 14px;border-radius:50px;box-shadow:0 10px 30px rgba(2,6,23,0.2);cursor:pointer;z-index:999;display:none
+    }
+    .cta{
+      position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,var(--accent),var(--primary));color:#fff;padding:12px 16px;border-radius:50px;box-shadow:0 10px 30px rgba(2,6,23,0.2);cursor:pointer;z-index:999;display:flex;align-items:center;gap:10px
+    }
+    .cta small{opacity:.9}
 
-        /* زر تبديل الوضع (Dark/Light Mode Toggle) */
-        .theme-toggle-button {
-            position: fixed;
-            bottom: 25px;
-            left: 25px;
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 12px 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1em;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        .theme-toggle-button:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-        }
+    /* ===========================================================
+       Reveal animations (initial hidden, then reveal)
+       =========================================================== */
+    .reveal{opacity:0;transform:translateY(18px) scale(.99);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.9,.2,1)}
+    .reveal.visible{opacity:1;transform:none}
 
-        /*
-        **********************************************************
-        *          إضافات CSS جديدة لهذه الخطوة                   *
-        **********************************************************
-        */
+    /* ===========================================================
+       Dark mode
+       =========================================================== */
+    body.dark{
+      background:var(--bg-dark);color:#e7eef6;
+    }
+    body.dark header{filter:brightness(.96)}
+    body.dark .glass{background:var(--card-dark);border:1px solid var(--glass-border-dark);box-shadow:var(--shadow-strong)}
+    body.dark input, body.dark textarea{background:rgba(255,255,255,0.04);color:#dfefff;border:1px solid rgba(255,255,255,0.06)}
+    body.dark .progress{background:#2f2f36}
+    body.dark .project-card, body.dark .skill-card{background:transparent}
 
-        /* قسم المقدمة (Hero Section) */
-        #hero {
-            position: relative;
-            overflow: hidden; /* لإخفاء أي جزء من الخلفية المتحركة يتجاوز القسم */
-            text-align: center;
-            padding: 100px 20px;
-            color: white;
-            background: linear-gradient(135deg, var(--gradient-start-light), var(--gradient-end-light));
-            background-size: 400% 400%; /* حجم كبير للخلفية لجعلها متحركة */
-            animation: gradientAnimation 15s ease infinite; /* تطبيق حركة التدرج */
-            border-radius: 12px;
-            margin-bottom: 30px;
-        }
-        #hero h2 {
-            color: white;
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        #hero p {
-            font-size: 1.5em;
-            margin-top: 20px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-        }
+    /* ===========================================================
+       Responsive
+       =========================================================== */
+    @media (max-width:880px){
+      header .container{flex-direction:column;align-items:flex-start;gap:8px}
+      #hero{padding:48px 16px}
+      .cta{display:none} /* اختفاء CTA على شاشات صغيرة */
+    }
+    @media (max-width:480px){
+      #hero h2{font-size:1.6rem}
+      header h1{font-size:1.05rem}
+    }
 
-        /* تأثير الكتابة الديناميكية */
-        #typing-text {
-            font-weight: bold;
-            color: var(--primary-color); /* لون النص المكتوب */
-            border-right: 3px solid white; /* المؤشر الوامض */
-            padding-right: 5px;
-            animation: blinkCaret 0.75s step-end infinite;
-        }
-        body.dark-mode #typing-text {
-             border-right-color: var(--text-dark); /* لون مؤشر الكتابة في الوضع الداكن */
-        }
-
-        /* حركة التدرج اللوني للخلفية */
-        @keyframes gradientAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* حركة مؤشر الكتابة */
-        @keyframes blinkCaret {
-            from, to { border-right-color: transparent }
-            50% { border-right-color: white; }
-        }
-        body.dark-mode @keyframes blinkCaret {
-            from, to { border-right-color: transparent }
-            50% { border-right-color: var(--text-dark); }
-        }
-
-
-        /* قسم المشاريع (Portfolio) - بطاقات قابلة للتوسع */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 0 20px;
-        }
-
-        .project-card {
-            background-color: var(--card-bg-light);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px var(--shadow-light);
-            overflow: hidden;
-            border: 1px solid var(--border-color-light);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px var(--shadow-light);
-        }
-        body.dark-mode .project-card:hover {
-            box-shadow: 0 8px 20px var(--shadow-dark);
-        }
-
-        .project-card h3 {
-            color: var(--primary-color);
-            margin: 20px 20px 10px;
-            font-size: 1.6em;
-        }
-
-        .project-card .short-description {
-            padding: 0 20px 15px;
-            font-size: 1.05em;
-            color: var(--text-light);
-            flex-grow: 1; /* لجعل الوصف يأخذ المساحة المتاحة */
-        }
-        body.dark-mode .project-card .short-description {
-            color: var(--text-dark);
-        }
-
-
-        .project-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.7s ease-out; /* حركة سلسة عند التوسع */
-            padding: 0 20px;
-            color: var(--text-light);
-        }
-        body.dark-mode .project-details {
-             color: var(--text-dark);
-        }
-
-        .project-details p {
-            margin-bottom: 15px;
-            line-height: 1.8;
-        }
-
-        .project-details a {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            margin-top: 10px;
-            margin-left: 10px;
-            transition: background-color 0.3s ease;
-        }
-        .project-details a:hover {
-            background-color: var(--primary-color-darker);
-        }
-
-        .toggle-details-button {
-            display: block;
-            width: calc(100% - 40px); /* ليتناسب مع البادينغ */
-            margin: 15px 20px 20px; /* بادينغ سفلي أكبر */
-            padding: 12px;
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            text-align: center;
-        }
-
-        .toggle-details-button:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-        }
-        .toggle-details-button::after {
-            content: ' ▾'; /* سهم يشير للأسفل */
-            transition: transform 0.3s ease;
-            display: inline-block;
-            margin-right: 5px;
-        }
-        .project-card.expanded .toggle-details-button::after {
-            content: ' ▴'; /* سهم يشير للأعلى عند التوسع */
-            transform: rotate(0deg);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.2em; }
-            header p { font-size: 1em; }
-            nav ul { gap: 15px; }
-            section h2 { font-size: 1.8em; }
-            #hero h2 { font-size: 2.5em; }
-            #hero p { font-size: 1.2em; }
-            .portfolio-grid { grid-template-columns: 1fr; }
-            .theme-toggle-button { bottom: 15px; left: 15px; padding: 10px 15px; font-size: 0.9em; }
-        }
-
-    </style>
+  </style>
 </head>
+
 <body>
-    <header>
-        <div class="container">
-            <h1>صالح الخليفي</h1>
-            <p>مطور ويب مبدع وشغوف بالابتكار</p>
-            <nav>
-                <ul>
-                    <li><a href="#about">عني</a></li>
-                    <li><a href="#skills">مهاراتي</a></li>
-                    <li><a href="#portfolio">مشاريعي</a></li>
-                    <li><a href="#contact">تواصل معي</a></li>
-                </ul>
-            </nav>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-weight:700">
+          <i class="fa-solid fa-code" style="color: #fff;"></i>
         </div>
-    </header>
-
-    <main class="container">
-        <!-- قسم المقدمة التفاعلية -->
-        <section id="hero">
-            <h2>مرحباً بك في عالمي الإبداعي!</h2>
-            <p>أنا <span id="typing-text"></span>، متخصص في بناء تجارب رقمية فريدة ومبتكرة.</p>
-        </section>
-
-        <!-- قسم عني -->
-        <section id="about">
-            <h2>عني</h2>
-            <p>
-                مطور ويب ذو خبرة في بناء وتصميم حلول برمجية مبتكرة. أجمع بين الشغف بالتكنولوجيا والحرص على تقديم تجارب مستخدم مميزة.
-                أركز على التفاصيل الدقيقة وأسعى دائماً للتعلم وتطبيق أحدث التقنيات لإنشاء منتجات رقمية عالية الجودة.
-                أؤمن بأن التكنولوجيا هي أداة قوية لخلق قيمة وإحداث فرق، وأعمل جاهداً لتقديم حلول تعكس هذا الاعتقاد.
-            </p>
-        </section>
-
-        <!-- قسم المهارات (سيتم إضافة المحتوى هنا لاحقاً) -->
-        <section id="skills">
-            <h2>مهاراتي</h2>
-            <!-- سيتم إضافة بطاقات المهارات هنا -->
-            <div style="text-align: center; margin-top: 20px;">
-                <p>مساحة لعرض مهاراتي الفنية والتقنية...</p>
-            </div>
-        </section>
-
-        <!-- قسم المشاريع (Portfolio) -->
-        <section id="portfolio">
-            <h2>مشاريعي</h2>
-            <div class="portfolio-grid">
-                <!-- مثال على بطاقة مشروع 1 -->
-                <div class="project-card">
-                    <h3>نظام إدارة المحتوى المتكامل</h3>
-                    <p class="short-description">
-                        تطوير نظام CMS مخصص بواجهة إدارية قوية ومرنة، يدعم تعدد اللغات ويوفر أدوات تحرير متقدمة.
-                    </p>
-                    <div class="project-details">
-                        <p>
-                            <strong>الوصف التفصيلي:</strong> هذا المشروع عبارة عن نظام إدارة محتوى (CMS) تم بناؤه من الصفر لتلبية احتياجات عميل معين.
-                            يتضمن لوحة تحكم سهلة الاستخدام لإدارة الصفحات، المقالات، المستخدمين، والصور. تم التركيز على الأداء والأمان وقابلية التوسع.
-                            استخدمنا تقنيات مثل PHP (Laravel) و Vue.js في الواجهة الأمامية، مع قاعدة بيانات MySQL.
-                        </p>
-                        <a href="#" target="_blank">عرض المشروع (تجريبي)</a>
-                        <a href="#" target="_blank">رؤية الكود (GitHub)</a>
-                    </div>
-                    <button class="toggle-details-button">تفاصيل المشروع</button>
-                </div>
-
-                <!-- مثال على بطاقة مشروع 2 -->
-                <div class="project-card">
-                    <h3>تطبيق ويب للتجارة الإلكترونية</h3>
-                    <p class="short-description">
-                        بناء متجر إلكتروني حديث ومتكامل، يوفر تجربة تسوق سلسة مع نظام سلات تسوق متقدمة وبوابات دفع متنوعة.
-                    </p>
-                    <div class="project-details">
-                        <p>
-                            <strong>الوصف التفصيلي:</strong> متجر إلكتروني متكامل يتيح للمستخدمين تصفح المنتجات، إضافتها إلى سلة التسوق،
-                            وإتمام عمليات الشراء بأمان. تميز المشروع بتصميمه المتجاوب (Responsive) الذي يعمل بفعالية على جميع الأجهزة،
-                            وإضافة ميزات مثل تتبع الطلبات، تقييم المنتجات، وفلاتر بحث متقدمة.
-                            تم البناء باستخدام Node.js و Express للواجهة الخلفية و React للواجهة الأمامية.
-                        </p>
-                        <a href="#" target="_blank">عرض المشروع (تجريبي)</a>
-                        <a href="#" target="_blank">رؤية الكود (GitHub)</a>
-                    </div>
-                    <button class="toggle-details-button">تفاصيل المشروع</button>
-                </div>
-
-                <!-- مثال على بطاقة مشروع 3 -->
-                <div class="project-card">
-                    <h3>منصة تعليمية تفاعلية</h3>
-                    <p class="short-description">
-                        تصميم وتطوير منصة تعليمية مبتكرة توفر دروساً تفاعلية، اختبارات، وتتبع التقدم للمستخدمين.
-                    </p>
-                    <div class="project-details">
-                        <p>
-                            <strong>الوصف التفصيلي:</strong> منصة تعليمية تهدف إلى تقديم تجربة تعلم شيقة وفعالة.
-                            تتضمن المنصة وحدات دراسية منظمة، اختبارات قصيرة بعد كل درس، وإمكانية تتبع تقدم الطلاب.
-                            بالإضافة إلى ذلك، تم تضمين نظام للمنتديات لمساعدة الطلاب على التفاعل وطرح الأسئلة.
-                            تم استخدام Python (Django) للواجهة الخلفية، و JavaScript لإنشاء عناصر تفاعلية في الواجهة الأمامية.
-                        </p>
-                        <a href="#" target="_blank">عرض المشروع (تجريبي)</a>
-                        <a href="#" target="_blank">رؤية الكود (GitHub)</a>
-                    </div>
-                    <button class="toggle-details-button">تفاصيل المشروع</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- قسم التواصل (سيتم إضافة المحتوى هنا لاحقاً) -->
-        <section id="contact">
-            <h2>تواصل معي</h2>
-            <!-- سيتم إضافة نموذج التواصل ومعلومات الاتصال هنا -->
-            <div style="text-align: center; margin-top: 20px;">
-                <p>يسعدني تلقي رسائلكم واستفساراتكم...</p>
-            </div>
-        </section>
-    </main>
-
-    <button class="theme-toggle-button" id="themeToggleButton">تبديل الوضع (داكن/فاتح)</button>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 صالح الخليفي. جميع الحقوق محفوظة.</p>
+        <div>
+          <h1>صالح الخليفي</h1>
+          <p style="font-size:.9rem;margin-top:4px">مطور ويب — إبداع وفعالية</p>
         </div>
-    </footer>
+      </div>
 
-    <!-- هنا سنضع أكواد JavaScript الخاصة بالموقع -->
-    <script>
-        /*
-        **********************************************************
-        *        قسم JavaScript: التفاعلات والديناميكية          *
-        **********************************************************
-        */
+      <nav>
+        <ul>
+          <li><a href="#about">عني</a></li>
+          <li><a href="#skills">مهاراتي</a></li>
+          <li><a href="#portfolio">مشاريعي</a></li>
+          <li><a href="#contact">تواصل</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-        // 1. منطق زر تبديل الوضع (Dark/Light Mode)
-        const themeToggleButton = document.getElementById('themeToggleButton');
-        const body = document.body;
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-shapes" aria-hidden="true">
+      <div class="shape s1"></div>
+      <div class="shape s2"></div>
+      <div class="shape s3"></div>
+    </div>
 
-        // التحقق من تفضيل المستخدم المحفوظ (إذا وجد)
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark-mode') {
-            body.classList.add('dark-mode');
-        } else if (savedTheme === 'light-mode') {
-            body.classList.remove('dark-mode');
+    <div class="container">
+      <h2 class="reveal">مرحباً — أنا <span id="typing-text" class="reveal"></span></h2>
+      <p class="reveal">أصنع تجارب ويب أداءً سريعًا، واجهات جذابة، وحلول قابلة للتوسع. تصفح مهاراتي ومشاريعي، وتواصل معي لنبدأ تعاوناً مبدعًا.</p>
+    </div>
+  </section>
+
+  <main class="container" style="padding-top:24px;">
+
+    <!-- About (glass) -->
+    <section id="about" class="glass reveal" aria-label="حول">
+      <h2 style="text-align:center;color:var(--primary);font-family:'Poppins',sans-serif;margin-top:0">عني</h2>
+      <p style="text-align:center;max-width:820px;margin:0 auto">
+        مطور ويب شغوف بتصميم وبناء واجهات وتجارب رقمية عالية الجودة. أعمل على تبسيط الأفكار المعقدة وتحويلها إلى واجهات يسهل استخدامها وتحبها العيون.
+      </p>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2 style="margin-bottom:18px" class="reveal">مهاراتي</h2>
+
+      <div class="skills-grid">
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="fa-brands fa-html5"></i></div>
+          <h3>HTML & CSS</h3>
+          <p class="skill-desc">بناء هياكل مرنة، تصميم متجاوب، واهتمام بتفاصيل الواجهة.</p>
+          <div class="progress"><span data-progress="95"></span></div>
+        </div>
+
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="fa-brands fa-square-js"></i></div>
+          <h3>JavaScript</h3>
+          <p class="skill-desc">تطوير واجهات تفاعلية باستخدام Vanilla, React وVue.</p>
+          <div class="progress"><span data-progress="90"></span></div>
+        </div>
+
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="fa-solid fa-server"></i></div>
+          <h3>Backend</h3>
+          <p class="skill-desc">تصميم APIs، أمان، وأداء للخوادم باستخدام Node/PHP/Python.</p>
+          <div class="progress"><span data-progress="85"></span></div>
+        </div>
+
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
+          <h3>Databases</h3>
+          <p class="skill-desc">SQL وNoSQL — تخطيط فهرسة وعمليات استعلام فعالة.</p>
+          <div class="progress"><span data-progress="80"></span></div>
+        </div>
+
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="fa-solid fa-paintbrush"></i></div>
+          <h3>UI/UX</h3>
+          <p class="skill-desc">تصميم تفاعلي يركّز على قابلية الاستخدام وتجربة المستخدم.</p>
+          <div class="progress"><span data-progress="75"></span></div>
+        </div>
+
+        <div class="skill-card glass reveal">
+          <div class="skill-icon"><i class="fa-brands fa-git-alt"></i></div>
+          <h3>Git</h3>
+          <p class="skill-desc">سير العمل التعاوني، فروع وادماج نظيف مع CI.</p>
+          <div class="progress"><span data-progress="90"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" style="margin-top:28px">
+      <h2 class="reveal">مشاريعي</h2>
+      <div class="portfolio-grid">
+        <div class="project-card glass reveal">
+          <h3>نظام إدارة المحتوى المتكامل</h3>
+          <p class="short-desc">CMS مخصص متعدد اللغات، لوحة تحكم مرنة، وأدوات تحرير متقدمة.</p>
+          <div class="project-details">
+            <p><strong>تفاصيل:</strong> أنظمة أمان، أداء محسّن، وخاصية التوسّع للمواقع الكبيرة.</p>
+            <div class="details-links">
+              <a href="#">عرض</a><a href="#">GitHub</a>
+            </div>
+          </div>
+          <button class="toggle">تفاصيل المشروع</button>
+        </div>
+
+        <div class="project-card glass reveal">
+          <h3>متجر إلكتروني متقدم</h3>
+          <p class="short-desc">تصميم متجاوب، سلة ذكية، وتكامل بوابات دفع.</p>
+          <div class="project-details">
+            <p><strong>تفاصيل:</strong> فلاتر متقدمة، تتبع الطلبات، وتجربة مستخدم محسّنة</p>
+            <div class="details-links">
+              <a href="#">عرض</a><a href="#">GitHub</a>
+            </div>
+          </div>
+          <button class="toggle">تفاصيل المشروع</button>
+        </div>
+
+        <div class="project-card glass reveal">
+          <h3>منصة تعليمية تفاعلية</h3>
+          <p class="short-desc">دورات تفاعلية، اختبارات موجزة، ونظام تتبّع الأداء.</p>
+          <div class="project-details">
+            <p><strong>تفاصيل:</strong> أدوات تفاعل وتشجيع للمستخدم مع تحليلات أداء.</p>
+            <div class="details-links">
+              <a href="#">عرض</a><a href="#">GitHub</a>
+            </div>
+          </div>
+          <button class="toggle">تفاصيل المشروع</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" style="margin-top:28px">
+      <h2 class="reveal">تواصل معي</h2>
+
+      <form id="contact-form" class="glass reveal" novalidate>
+        <div>
+          <label for="name">الاسم</label>
+          <input id="name" name="name" type="text" required placeholder="اسمك الكامل">
+        </div>
+
+        <div>
+          <label for="email">البريد الإلكتروني</label>
+          <input id="email" name="email" type="email" required placeholder="example@domain.com">
+        </div>
+
+        <div>
+          <label for="message">الرسالة</label>
+          <textarea id="message" name="message" required placeholder="ما الذي تريد مناقشته؟" rows="6"></textarea>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end">
+          <button type="submit">إرسال الرسالة</button>
+        </div>
+      </form>
+
+      <div id="contact-message" role="status" aria-live="polite" class="reveal" style="margin-top:14px"></div>
+    </section>
+
+    <!-- حساباتي الشخصية -->
+    <section id="social" style="margin-top:28px">
+      <h2 class="reveal">حساباتي الشخصية</h2>
+      <div class="social-grid" style="display: flex; flex-direction: row; gap: 16px; justify-content: center; margin-top: 12px;">
+        <a href="https://t.me/iSx3i" target="_blank" class="glass" style="flex: 1; min-width: 200px; padding: 20px; text-align: center; border-radius: 10px;">
+          <i class="fa-brands fa-telegram" style="font-size: 2.5rem; color: var(--primary);"></i>
+          <p style="margin-top:8px">تلغرام<br>@iSx3i</p>
+        </a>
+        <a href="mailto:yemenfmfm@gmail.com" target="_blank" class="glass" style="flex: 1; min-width: 200px; padding: 20px; text-align: center; border-radius: 10px;">
+          <i class="fa-solid fa-envelope" style="font-size: 2.5rem; color: var(--primary);"></i>
+          <p style="margin-top:8px">الايميل<br>yemenfmfm@gmail.com</p>
+        </a>
+        <a href="https://wa.me/967774033125" target="_blank" class="glass" style="flex: 1; min-width: 200px; padding: 20px; text-align: center; border-radius: 10px;">
+          <i class="fa-brands fa-whatsapp" style="font-size: 2.5rem; color: var(--primary);"></i>
+          <p style="margin-top:8px">واتساب<br>+967774033125</p>
+        </a>
+      </div>
+    </section>
+    
+  </main>
+
+  <!-- Floating CTA + Back-to-top -->
+  <div class="cta" title="ابدأ مشروعك">
+    <i class="fa-solid fa-rocket"></i>
+    <small>ابدأ مشروعك</small>
+  </div>
+
+  <button class="back-top" id="backTop" aria-label="العودة للأعلى"><i class="fa-solid fa-chevron-up"></i></button>
+
+  <footer style="margin-top:38px;padding:22px 0;background:linear-gradient(90deg,var(--primary),var(--primary-600));color:#fff;text-align:center;border-top-left-radius:18px;border-top-right-radius:18px">
+    <div class="container">
+      <small>&copy; 2026 <strong>صالح الخليفي</strong>. جميع الحقوق محفوظة.</small>
+    </div>
+  </footer>
+
+  <!-- JavaScript (كل شيء داخل الملف) -->
+  <script>
+    /* ===========================
+       Dark mode handling
+       =========================== */
+    (function(){
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const saved = localStorage.getItem('site-theme');
+      if(saved === 'dark' || (!saved && prefersDark)) document.body.classList.add('dark');
+    })();
+
+    /* ===========================
+       Typing effect (Hero)
+       =========================== */
+    (function(){
+      const el = document.getElementById('typing-text');
+      const phrases = ["صالح الخليفي", "مطور ويب مبدع", "خبير تجربة المستخدم", "مهندس حلول رقمية"];
+      let p = 0, i = 0, deleting = false;
+
+      function tick(){
+        const txt = phrases[p];
+        if(!deleting){
+          i++;
+          el.textContent = txt.slice(0,i);
         } else {
-            // تفضيل الوضع الداكن للنظام افتراضيًا إذا لم يكن هناك تفضيل محفوظ
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                body.classList.add('dark-mode');
-            }
+          i--;
+          el.textContent = txt.slice(0,i);
         }
 
-        themeToggleButton.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            // حفظ تفضيل المستخدم
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark-mode');
-            } else {
-                localStorage.setItem('theme', 'light-mode');
-            }
+        let delay = deleting ? 40 : 90;
+        if(!deleting && i===txt.length) delay = 1400, deleting = true;
+        if(deleting && i===0) { deleting = false; p = (p+1) % phrases.length; delay = 600; }
+
+        setTimeout(tick, delay);
+      }
+      // small delay to allow DOM & animations
+      setTimeout(tick, 600);
+    })();
+
+    /* ===========================
+       Parallax for hero shapes (lightweight)
+       =========================== */
+    (function(){
+      const shapes = document.querySelectorAll('.shape');
+      function onScroll(){
+        const y = window.scrollY;
+        shapes.forEach((s, idx) => {
+          const depth = (idx+1) * 0.14; // different speeds
+          s.style.transform = `translateY(${y * depth}px)`;
         });
+      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    })();
 
-        // 2. منطق التمرير السلس (Smooth Scrolling)
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+    /* ===========================
+       Reveal on scroll (Intersection Observer)
+       =========================== */
+    (function(){
+      const items = document.querySelectorAll('.reveal');
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting) {
+            e.target.classList.add('visible');
+            obs.unobserve(e.target);
+          }
         });
+      },{threshold:0.18});
+      items.forEach(i=>obs.observe(i));
+    })();
 
-        /*
-        **********************************************************
-        *          إضافات JavaScript جديدة لهذه الخطوة             *
-        **********************************************************
-        */
+    /* ===========================
+       Skill bars animation when visible
+       =========================== */
+    (function(){
+      const bars = document.querySelectorAll('.progress > span');
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){
+            const el = e.target;
+            const pct = el.dataset.progress || 0;
+            el.style.width = pct + '%';
+            obs.unobserve(el);
+          }
+        });
+      },{threshold:0.5});
+      bars.forEach(b=>obs.observe(b));
+    })();
 
-        // 3. تأثير الكتابة الديناميكية
-        const typingTextElement = document.getElementById('typing-text');
-        const phrases = [
-            "صالح الخليفي",
-            "مطور ويب مبدع",
-            "خبير في تجربة المستخدم",
-            "مهندس حلول رقمية"
-        ];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
+    /* ===========================
+       Toggle project details (smooth)
+       =========================== */
+    (function(){
+      const toggles = document.querySelectorAll('.project-card .toggle');
+      toggles.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const card = btn.closest('.project-card');
+          const details = card.querySelector('.project-details');
+          const isOpen = card.classList.contains('expanded');
 
-        function typeEffect() {
-            const currentPhrase = phrases[phraseIndex];
-            let displayText = '';
+          if(isOpen){
+            details.style.maxHeight = '0';
+            card.classList.remove('expanded');
+            btn.textContent = 'تفاصيل المشروع';
+          } else {
+            details.style.maxHeight = details.scrollHeight + 'px';
+            card.classList.add('expanded');
+            btn.textContent = 'إخفاء التفاصيل';
+          }
+        });
+      });
+    })();
 
-            if (isDeleting) {
-                displayText = currentPhrase.substring(0, charIndex - 1);
-            } else {
-                displayText = currentPhrase.substring(0, charIndex + 1);
-            }
+    /* ===========================
+       Contact form (simulate send)
+       =========================== */
+    (function(){
+      const form = document.getElementById('contact-form');
+      const msg = document.getElementById('contact-message');
 
-            typingTextElement.textContent = displayText;
-
-            let typingSpeed = 100; // سرعة الكتابة
-            if (isDeleting) typingSpeed /= 2; // سرعة المسح أسرع
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                typingSpeed = 1500; // الانتظار بعد الكتابة الكاملة
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typingSpeed = 500; // الانتظار قبل كتابة الجملة التالية
-            }
-
-            if (isDeleting) {
-                charIndex--;
-            } else {
-                charIndex++;
-            }
-
-            setTimeout(typeEffect, typingSpeed);
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        // Basic validation
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+        if(!name || !email || !message){
+          showMsg('يرجى تعبئة جميع الحقول.', 'error');
+          return;
         }
 
-        // بدء تأثير الكتابة بعد تحميل الصفحة
-        document.addEventListener('DOMContentLoaded', typeEffect);
+        // Visual: show sending
+        showMsg('جاري إرسال الرسالة...', 'info');
+        // Simulate network delay
+        setTimeout(()=>{
+          // simulate success
+          const success = Math.random() > 0.15;
+          if(success){
+            showMsg('تم استلام رسالتك بنجاح! سأتواصل معك قريباً.', 'success');
+            form.reset();
+          } else {
+            showMsg('حدث خطأ أثناء الإرسال. حاول مرة أخرى لاحقاً.', 'error');
+          }
+        }, 900);
+      });
 
-        // 4. منطق بطاقات المشاريع القابلة للتوسع
-        document.querySelectorAll('.toggle-details-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const projectCard = this.closest('.project-card');
-                const projectDetails = projectCard.querySelector('.project-details');
+      function showMsg(text, type){
+        msg.style.display='block';
+        msg.textContent = text;
+        msg.className = ''; // reset
+        if(type === 'success'){
+          msg.style.background = '#d4edda'; msg.style.color='#0b5132'; msg.style.border='1px solid #c3e6cb';
+        } else if(type === 'error'){
+          msg.style.background = '#f8d7da'; msg.style.color='#721c24'; msg.style.border='1px solid #f5c6cb';
+        } else {
+          msg.style.background = 'rgba(255,255,255,0.06)'; msg.style.color='#fff'; msg.style.border='1px solid rgba(255,255,255,0.04)';
+        }
+        // hide after 5s
+        clearTimeout(msg._hideTimer);
+        msg._hideTimer = setTimeout(()=>{ msg.style.display='none'; }, 5000);
+      }
+    })();
 
-                if (projectDetails.style.maxHeight && projectDetails.style.maxHeight !== "0px") {
-                    // إذا كان مفتوحاً، قم بإغلاقه
-                    projectDetails.style.maxHeight = '0';
-                    projectCard.classList.remove('expanded');
-                    this.textContent = 'تفاصيل المشروع';
-                } else {
-                    // إذا كان مغلقاً، قم بفتحه
-                    // تعيين maxHeight لقيمة كبيرة بما يكفي لاستيعاب المحتوى
-                    projectDetails.style.maxHeight = projectDetails.scrollHeight + 'px';
-                    projectCard.classList.add('expanded');
-                    this.textContent = 'إخفاء التفاصيل';
-                }
-            });
-        });
-    </script>
+    /* ===========================
+       Back to top + CTA behaviour
+       =========================== */
+    (function(){
+      const back = document.getElementById('backTop');
+      const cta = document.querySelector('.cta');
+
+      window.addEventListener('scroll', ()=>{
+        if(window.scrollY > 420) back.style.display = 'block';
+        else back.style.display = 'none';
+      }, {passive:true});
+
+      back.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+      cta.addEventListener('click', ()=>{
+        // scroll to contact
+        const contact = document.getElementById('contact');
+        contact.scrollIntoView({behavior:'smooth'});
+      });
+    })();
+
+    /* ===========================
+       Accessibility: allow keyboard toggle for dark mode (optional)
+       double-tap header logo to toggle dark for quick preview
+       =========================== */
+    (function(){
+      const brandBox = document.querySelector('.brand > div:first-child');
+      let lastTap = 0;
+      brandBox.addEventListener('click', ()=>{
+        const now = Date.now();
+        if(now - lastTap < 420){
+          document.body.classList.toggle('dark');
+          localStorage.setItem('site-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        }
+        lastTap = now;
+      });
+    })();
+  </script>
 </body>
 </html>
  
-
