@@ -1,610 +1,938 @@
-
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>صالح الخليفي — مطور ويب</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>صالح الخليفي | مطور ويب إبداعي</title>
 
-  <!-- خطوط Google (Cairo + Poppins) -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome (أيقونات) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="" crossorigin="anonymous">
-
-  <style>
-    /* ===========================================================
-       متغيرات وثوابت الألوان والتأثيرات
-       =========================================================== */
-    :root{
-      --primary:#007bff;
-      --primary-600:#0056b3;
-      --muted:#6c757d;
-      --bg-light:#f4f7f8;
-      --bg-dark:#0f1720;
-      --card-light: rgba(255,255,255,0.55);
-      --card-dark: rgba(20,20,25,0.55);
-      --glass-border: rgba(255,255,255,0.18);
-      --glass-border-dark: rgba(255,255,255,0.08);
-      --blur: 10px;
-      --shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
-      --shadow-strong: 0 12px 48px rgba(2,6,23,0.35);
-      --accent: #00c2a8;
-      --max-width: 1200px;
-    }
-
-    /* ===========================================================
-       قواعد أساسية
-       =========================================================== */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: 'Cairo', sans-serif;
-      background:var(--bg-light);
-      color:#111;
-      direction:rtl;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
-      transition:background .35s ease,color .35s ease;
-    }
-    .container{max-width:var(--max-width);margin:0 auto;padding:20px}
-
-    /* ===========================================================
-       رأس الصفحة
-       =========================================================== */
-    header{
-      background:linear-gradient(90deg,var(--primary),var(--primary-600));
-      color:#fff;padding:20px 0;border-bottom-left-radius:18px;border-bottom-right-radius:18px;
-      box-shadow: 0 6px 22px rgba(2,6,23,0.15);
-      position:sticky;top:0;z-index:60;
-    }
-    header .container{display:flex;align-items:center;justify-content:space-between;gap:15px}
-    header .brand{display:flex;align-items:center;gap:14px}
-    header h1{margin:0;font-family:'Poppins',sans-serif;font-size:1.45rem}
-    header p{margin:0;opacity:.95}
-    nav ul{display:flex;gap:14px;list-style:none;margin:0;padding:0}
-    nav a{color:rgba(255,255,255,.95);text-decoration:none;padding:8px 12px;border-radius:12px;font-weight:700}
-    nav a:hover{background:rgba(255,255,255,.08);transform:translateY(-2px);transition:.18s}
-
-    /* ===========================================================
-       Hero (مقدمة) مع أشكال متحركة (parallax خفيف)
-       =========================================================== */
-    #hero{
-      margin-top:18px;
-      position:relative;
-      overflow:visible;
-      border-radius:14px;
-      padding:70px 20px;
-      color:#fff;
-      background: linear-gradient(135deg,#e0f2f7,#d0e8f0);
-      background-size:400% 400%;
-      animation:grad 16s ease infinite;
-      box-shadow:var(--shadow-strong);
-    }
-    #hero .container{display:block;text-align:center;position:relative;z-index:5}
-    #hero h2{font-size:2.4rem;margin:0 0 12px;font-family:'Poppins',sans-serif}
-    #hero p{font-size:1.2rem;margin:0 auto;max-width:920px}
-    #typing-text{font-weight:800;color:var(--primary);border-right:3px solid rgba(255,255,255,.9);padding-right:6px;animation:blink .8s step-end infinite}
-
-    /* زخارف (shapes) تعمل parallax */
-    .hero-shapes{position:absolute;inset:0;pointer-events:none;z-index:2}
-    .shape{
-      position:absolute;opacity:.18;filter:blur(18px);transform:translateZ(0);
-      transition:transform .2s linear;
-    }
-    .shape.s1{width:260px;height:260px;border-radius:40%;background:linear-gradient(135deg,var(--accent),var(--primary));left:12%;top:-40px}
-    .shape.s2{width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,#ffd27a,#ff7ab6);right:8%;top:10%}
-    .shape.s3{width:120px;height:120px;border-radius:30%;background:linear-gradient(135deg,#8be3ff,#7b6bff);left:45%;bottom:-30px}
-
-    @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    @keyframes blink{from,to{border-right-color:transparent}50%{border-right-color:rgba(255,255,255,.95)}}
-
-    /* ===========================================================
-       Glass sections (الـ Glassmorphism)
-       =========================================================== */
-    .glass{
-      background:var(--card-light);
-      backdrop-filter: blur(var(--blur));
-      -webkit-backdrop-filter: blur(var(--blur));
-      border-radius:12px;
-      border:1px solid var(--glass-border);
-      box-shadow:var(--shadow);
-      padding:34px;
-      transition:all .4s ease;
-    }
-    /* dark mode glass overrides set later */
-
-    /* ===========================================================
-       المهارات (Skills)
-       =========================================================== */
-    #skills{margin-top:28px}
-    .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-    .skill-card{padding:22px;border-radius:10px;text-align:center;transition:transform .28s ease;display:flex;flex-direction:column;align-items:center;gap:12px}
-    .skill-card:hover{transform:translateY(-6px)}
-    .skill-icon{font-size:2.2rem;color:var(--primary);display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:12px;background:rgba(255,255,255,0.18);box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .skill-card h3{margin:0;font-family:'Poppins',sans-serif;color:var(--primary)}
-    .skill-desc{margin:0;color:#333;opacity:.9}
-    .progress{width:100%;height:12px;background:#e6e9ee;border-radius:999px;overflow:hidden;margin-top:8px}
-    .progress > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:999px;transition:width 1s cubic-bezier(.2,.9,.2,1)}
-
-    /* ===========================================================
-       المشاريع (Portfolio)
-       =========================================================== */
-    .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
-    .project-card{display:flex;flex-direction:column;gap:8px;border-radius:12px;padding:18px;transition:transform .25s ease;cursor:default}
-    .project-card:hover{transform:translateY(-8px)}
-    .project-card h3{margin:0;font-family:'Poppins',sans-serif;color:var(--primary)}
-    .short-desc{color:#333}
-    .project-details{max-height:0;overflow:hidden;transition:max-height .6s ease;padding-top:0}
-    .project-card.expanded .project-details{padding-top:12px}
-
-    .details-links a{display:inline-block;margin-left:8px;padding:8px 12px;border-radius:8px;background:var(--primary);color:#fff;text-decoration:none}
-
-    /* ===========================================================
-       نموذج التواصل (Contact)
-       =========================================================== */
-    #contact{margin-top:26px}
-    #contact form{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
-    label{font-weight:700;color:var(--primary);display:block}
-    input[type="text"],input[type="email"],textarea{
-      width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);background:rgba(255,255,255,0.6);font-size:1rem;outline:none;transition:box-shadow .18s,border-color .18s
-    }
-    input:focus,textarea:focus{box-shadow:0 6px 20px rgba(0,0,0,.06);border-color:var(--primary)}
-    button[type="submit"]{align-self:flex-end;background:var(--primary);color:#fff;padding:12px 18px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    button[type="submit"]:hover{background:var(--primary-600);transform:translateY(-3px)}
-
-    #contact-message{display:none;padding:12px;border-radius:10px;text-align:center}
-
-    /* ===========================================================
-       Back to top & Floating CTA
-       =========================================================== */
-    .back-top{
-      position:fixed;left:18px;bottom:18px;background:var(--primary);color:#fff;padding:12px 14px;border-radius:50px;box-shadow:0 10px 30px rgba(2,6,23,0.2);cursor:pointer;z-index:999;display:none
-    }
-    .cta{
-      position:fixed;right:18px;bottom:18px;background:linear-gradient(180deg,var(--accent),var(--primary));color:#fff;padding:12px 16px;border-radius:50px;box-shadow:0 10px 30px rgba(2,6,23,0.2);cursor:pointer;z-index:999;display:flex;align-items:center;gap:10px
-    }
-    .cta small{opacity:.9}
-
-    /* ===========================================================
-       Reveal animations (initial hidden, then reveal)
-       =========================================================== */
-    .reveal{opacity:0;transform:translateY(18px) scale(.99);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.9,.2,1)}
-    .reveal.visible{opacity:1;transform:none}
-
-    /* ===========================================================
-       Dark mode
-       =========================================================== */
-    body.dark{
-      background:var(--bg-dark);color:#e7eef6;
-    }
-    body.dark header{filter:brightness(.96)}
-    body.dark .glass{background:var(--card-dark);border:1px solid var(--glass-border-dark);box-shadow:var(--shadow-strong)}
-    body.dark input, body.dark textarea{background:rgba(255,255,255,0.04);color:#dfefff;border:1px solid rgba(255,255,255,0.06)}
-    body.dark .progress{background:#2f2f36}
-    body.dark .project-card, body.dark .skill-card{background:transparent}
-
-    /* ===========================================================
-       Responsive
-       =========================================================== */
-    @media (max-width:880px){
-      header .container{flex-direction:column;align-items:flex-start;gap:8px}
-      #hero{padding:48px 16px}
-      .cta{display:none} /* اختفاء CTA على شاشات صغيرة */
-    }
-    @media (max-width:480px){
-      #hero h2{font-size:1.6rem}
-      header h1{font-size:1.05rem}
-    }
-
-  </style>
-</head>
-
-<body>
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <div class="brand">
-        <div style="width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-weight:700">
-          <i class="fa-solid fa-code" style="color: #fff;"></i>
-        </div>
-        <div>
-          <h1>صالح الخليفي</h1>
-          <p style="font-size:.9rem;margin-top:4px">مطور ويب — إبداع وفعالية</p>
-        </div>
-      </div>
-
-      <nav>
-        <ul>
-          <li><a href="#about">عني</a></li>
-          <li><a href="#skills">مهاراتي</a></li>
-          <li><a href="#portfolio">مشاريعي</a></li>
-          <li><a href="#contact">تواصل</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="hero">
-    <div class="hero-shapes" aria-hidden="true">
-      <div class="shape s1"></div>
-      <div class="shape s2"></div>
-      <div class="shape s3"></div>
-    </div>
-
-    <div class="container">
-      <h2 class="reveal">مرحباً — أنا <span id="typing-text" class="reveal"></span></h2>
-      <p class="reveal">أصنع تجارب ويب أداءً سريعًا، واجهات جذابة، وحلول قابلة للتوسع. تصفح مهاراتي ومشاريعي، وتواصل معي لنبدأ تعاوناً مبدعًا.</p>
-    </div>
-  </section>
-
-  <main class="container" style="padding-top:24px;">
-
-    <!-- About (glass) -->
-    <section id="about" class="glass reveal" aria-label="حول">
-      <h2 style="text-align:center;color:var(--primary);font-family:'Poppins',sans-serif;margin-top:0">عني</h2>
-      <p style="text-align:center;max-width:820px;margin:0 auto">
-        مطور ويب شغوف بتصميم وبناء واجهات وتجارب رقمية عالية الجودة. أعمل على تبسيط الأفكار المعقدة وتحويلها إلى واجهات يسهل استخدامها وتحبها العيون.
-      </p>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-      <h2 style="margin-bottom:18px" class="reveal">مهاراتي</h2>
-
-      <div class="skills-grid">
-        <div class="skill-card glass reveal">
-          <div class="skill-icon"><i class="fa-brands fa-html5"></i></div>
-          <h3>HTML & CSS</h3>
-          <p class="skill-desc">بناء هياكل مرنة، تصميم متجاوب، واهتمام بتفاصيل الواجهة.</p>
-          <div class="progress"><span data-progress="95"></span></div>
-        </div>
-
-        <div class="skill-card glass reveal">
-          <div class="skill-icon"><i class="fa-brands fa-square-js"></i></div>
-          <h3>JavaScript</h3>
-          <p class="skill-desc">تطوير واجهات تفاعلية باستخدام Vanilla, React وVue.</p>
-          <div class="progress"><span data-progress="90"></span></div>
-        </div>
-
-        <div class="skill-card glass reveal">
-          <div class="skill-icon"><i class="fa-solid fa-server"></i></div>
-          <h3>Backend</h3>
-          <p class="skill-desc">تصميم APIs، أمان، وأداء للخوادم باستخدام Node/PHP/Python.</p>
-          <div class="progress"><span data-progress="85"></span></div>
-        </div>
-
-        <div class="skill-card glass reveal">
-          <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
-          <h3>Databases</h3>
-          <p class="skill-desc">SQL وNoSQL — تخطيط فهرسة وعمليات استعلام فعالة.</p>
-          <div class="progress"><span data-progress="80"></span></div>
-        </div>
-
-        <div class="skill-card glass reveal">
-          <div class="skill-icon"><i class="fa-solid fa-paintbrush"></i></div>
-          <h3>UI/UX</h3>
-          <p class="skill-desc">تصميم تفاعلي يركّز على قابلية الاستخدام وتجربة المستخدم.</p>
-          <div class="progress"><span data-progress="75"></span></div>
-        </div>
-
-        <div class="skill-card glass reveal">
-          <div class="skill-icon"><i class="fa-brands fa-git-alt"></i></div>
-          <h3>Git</h3>
-          <p class="skill-desc">سير العمل التعاوني، فروع وادماج نظيف مع CI.</p>
-          <div class="progress"><span data-progress="90"></span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Portfolio -->
-    <section id="portfolio" style="margin-top:28px">
-      <h2 class="reveal">مشاريعي</h2>
-      <div class="portfolio-grid">
-        <div class="project-card glass reveal">
-          <h3>نظام إدارة المحتوى المتكامل</h3>
-          <p class="short-desc">CMS مخصص متعدد اللغات، لوحة تحكم مرنة، وأدوات تحرير متقدمة.</p>
-          <div class="project-details">
-            <p><strong>تفاصيل:</strong> أنظمة أمان، أداء محسّن، وخاصية التوسّع للمواقع الكبيرة.</p>
-            <div class="details-links">
-              <a href="#">عرض</a><a href="#">GitHub</a>
-            </div>
-          </div>
-          <button class="toggle">تفاصيل المشروع</button>
-        </div>
-
-        <div class="project-card glass reveal">
-          <h3>متجر إلكتروني متقدم</h3>
-          <p class="short-desc">تصميم متجاوب، سلة ذكية، وتكامل بوابات دفع.</p>
-          <div class="project-details">
-            <p><strong>تفاصيل:</strong> فلاتر متقدمة، تتبع الطلبات، وتجربة مستخدم محسّنة</p>
-            <div class="details-links">
-              <a href="#">عرض</a><a href="#">GitHub</a>
-            </div>
-          </div>
-          <button class="toggle">تفاصيل المشروع</button>
-        </div>
-
-        <div class="project-card glass reveal">
-          <h3>منصة تعليمية تفاعلية</h3>
-          <p class="short-desc">دورات تفاعلية، اختبارات موجزة، ونظام تتبّع الأداء.</p>
-          <div class="project-details">
-            <p><strong>تفاصيل:</strong> أدوات تفاعل وتشجيع للمستخدم مع تحليلات أداء.</p>
-            <div class="details-links">
-              <a href="#">عرض</a><a href="#">GitHub</a>
-            </div>
-          </div>
-          <button class="toggle">تفاصيل المشروع</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" style="margin-top:28px">
-      <h2 class="reveal">تواصل معي</h2>
-
-      <form id="contact-form" class="glass reveal" novalidate>
-        <div>
-          <label for="name">الاسم</label>
-          <input id="name" name="name" type="text" required placeholder="اسمك الكامل">
-        </div>
-
-        <div>
-          <label for="email">البريد الإلكتروني</label>
-          <input id="email" name="email" type="email" required placeholder="example@domain.com">
-        </div>
-
-        <div>
-          <label for="message">الرسالة</label>
-          <textarea id="message" name="message" required placeholder="ما الذي تريد مناقشته؟" rows="6"></textarea>
-        </div>
-
-        <div style="display:flex;gap:12px;align-items:center;justify-content:flex-end">
-          <button type="submit">إرسال الرسالة</button>
-        </div>
-      </form>
-
-      <div id="contact-message" role="status" aria-live="polite" class="reveal" style="margin-top:14px"></div>
-    </section>
-
-    <!-- حساباتي الشخصية -->
-    <section id="social" style="margin-top:28px">
-      <h2 class="reveal">حساباتي الشخصية</h2>
-      <div class="social-grid" style="display: flex; flex-direction: row; gap: 16px; justify-content: center; margin-top: 12px;">
-        <a href="https://t.me/iSx3i" target="_blank" class="glass" style="flex: 1; min-width: 200px; padding: 20px; text-align: center; border-radius: 10px;">
-          <i class="fa-brands fa-telegram" style="font-size: 2.5rem; color: var(--primary);"></i>
-          <p style="margin-top:8px">تلغرام<br>@iSx3i</p>
-        </a>
-        <a href="mailto:yemenfmfm@gmail.com" target="_blank" class="glass" style="flex: 1; min-width: 200px; padding: 20px; text-align: center; border-radius: 10px;">
-          <i class="fa-solid fa-envelope" style="font-size: 2.5rem; color: var(--primary);"></i>
-          <p style="margin-top:8px">الايميل<br>yemenfmfm@gmail.com</p>
-        </a>
-        <a href="https://wa.me/967774033125" target="_blank" class="glass" style="flex: 1; min-width: 200px; padding: 20px; text-align: center; border-radius: 10px;">
-          <i class="fa-brands fa-whatsapp" style="font-size: 2.5rem; color: var(--primary);"></i>
-          <p style="margin-top:8px">واتساب<br>+967774033125</p>
-        </a>
-      </div>
-    </section>
+    <!-- خطوط عصرية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-  </main>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Floating CTA + Back-to-top -->
-  <div class="cta" title="ابدأ مشروعك">
-    <i class="fa-solid fa-rocket"></i>
-    <small>ابدأ مشروعك</small>
-  </div>
-
-  <button class="back-top" id="backTop" aria-label="العودة للأعلى"><i class="fa-solid fa-chevron-up"></i></button>
-
-  <footer style="margin-top:38px;padding:22px 0;background:linear-gradient(90deg,var(--primary),var(--primary-600));color:#fff;text-align:center;border-top-left-radius:18px;border-top-right-radius:18px">
-    <div class="container">
-      <small>&copy; 2026 <strong>صالح الخليفي</strong>. جميع الحقوق محفوظة.</small>
-    </div>
-  </footer>
-
-  <!-- JavaScript (كل شيء داخل الملف) -->
-  <script>
-    /* ===========================
-       Dark mode handling
-       =========================== */
-    (function(){
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const saved = localStorage.getItem('site-theme');
-      if(saved === 'dark' || (!saved && prefersDark)) document.body.classList.add('dark');
-    })();
-
-    /* ===========================
-       Typing effect (Hero)
-       =========================== */
-    (function(){
-      const el = document.getElementById('typing-text');
-      const phrases = ["صالح الخليفي", "مطور ويب مبدع", "خبير تجربة المستخدم", "مهندس حلول رقمية"];
-      let p = 0, i = 0, deleting = false;
-
-      function tick(){
-        const txt = phrases[p];
-        if(!deleting){
-          i++;
-          el.textContent = txt.slice(0,i);
-        } else {
-          i--;
-          el.textContent = txt.slice(0,i);
+    <style>
+        /* ===== المتغيرات الأساسية ===== */
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --accent: #00cec9;
+            --accent-glow: #00e5ff;
+            --gold: #fdcb6e;
+            --bg-light: #f8fafd;
+            --bg-dark: #0a0c10;
+            --surface-light: rgba(255, 255, 255, 0.7);
+            --surface-dark: rgba(20, 22, 30, 0.7);
+            --glass-border-light: rgba(255, 255, 255, 0.4);
+            --glass-border-dark: rgba(255, 255, 255, 0.08);
+            --text-light: #1e1e2f;
+            --text-dark: #e6e8f0;
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.06);
+            --shadow-lg: 0 25px 50px -12px rgba(0,0,0,0.25);
+            --blur: 16px;
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+            --transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Cairo', sans-serif;
         }
 
-        let delay = deleting ? 40 : 90;
-        if(!deleting && i===txt.length) delay = 1400, deleting = true;
-        if(deleting && i===0) { deleting = false; p = (p+1) % phrases.length; delay = 600; }
-
-        setTimeout(tick, delay);
-      }
-      // small delay to allow DOM & animations
-      setTimeout(tick, 600);
-    })();
-
-    /* ===========================
-       Parallax for hero shapes (lightweight)
-       =========================== */
-    (function(){
-      const shapes = document.querySelectorAll('.shape');
-      function onScroll(){
-        const y = window.scrollY;
-        shapes.forEach((s, idx) => {
-          const depth = (idx+1) * 0.14; // different speeds
-          s.style.transform = `translateY(${y * depth}px)`;
-        });
-      }
-      window.addEventListener('scroll', onScroll, {passive:true});
-      onScroll();
-    })();
-
-    /* ===========================
-       Reveal on scroll (Intersection Observer)
-       =========================== */
-    (function(){
-      const items = document.querySelectorAll('.reveal');
-      const obs = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      },{threshold:0.18});
-      items.forEach(i=>obs.observe(i));
-    })();
-
-    /* ===========================
-       Skill bars animation when visible
-       =========================== */
-    (function(){
-      const bars = document.querySelectorAll('.progress > span');
-      const obs = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{
-          if(e.isIntersecting){
-            const el = e.target;
-            const pct = el.dataset.progress || 0;
-            el.style.width = pct + '%';
-            obs.unobserve(el);
-          }
-        });
-      },{threshold:0.5});
-      bars.forEach(b=>obs.observe(b));
-    })();
-
-    /* ===========================
-       Toggle project details (smooth)
-       =========================== */
-    (function(){
-      const toggles = document.querySelectorAll('.project-card .toggle');
-      toggles.forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const card = btn.closest('.project-card');
-          const details = card.querySelector('.project-details');
-          const isOpen = card.classList.contains('expanded');
-
-          if(isOpen){
-            details.style.maxHeight = '0';
-            card.classList.remove('expanded');
-            btn.textContent = 'تفاصيل المشروع';
-          } else {
-            details.style.maxHeight = details.scrollHeight + 'px';
-            card.classList.add('expanded');
-            btn.textContent = 'إخفاء التفاصيل';
-          }
-        });
-      });
-    })();
-
-    /* ===========================
-       Contact form (simulate send)
-       =========================== */
-    (function(){
-      const form = document.getElementById('contact-form');
-      const msg = document.getElementById('contact-message');
-
-      form.addEventListener('submit', function(e){
-        e.preventDefault();
-        // Basic validation
-        const name = form.name.value.trim();
-        const email = form.email.value.trim();
-        const message = form.message.value.trim();
-        if(!name || !email || !message){
-          showMsg('يرجى تعبئة جميع الحقول.', 'error');
-          return;
+        /* ===== إعادة تعيين ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        // Visual: show sending
-        showMsg('جاري إرسال الرسالة...', 'info');
-        // Simulate network delay
-        setTimeout(()=>{
-          // simulate success
-          const success = Math.random() > 0.15;
-          if(success){
-            showMsg('تم استلام رسالتك بنجاح! سأتواصل معك قريباً.', 'success');
-            form.reset();
-          } else {
-            showMsg('حدث خطأ أثناء الإرسال. حاول مرة أخرى لاحقاً.', 'error');
-          }
-        }, 900);
-      });
-
-      function showMsg(text, type){
-        msg.style.display='block';
-        msg.textContent = text;
-        msg.className = ''; // reset
-        if(type === 'success'){
-          msg.style.background = '#d4edda'; msg.style.color='#0b5132'; msg.style.border='1px solid #c3e6cb';
-        } else if(type === 'error'){
-          msg.style.background = '#f8d7da'; msg.style.color='#721c24'; msg.style.border='1px solid #f5c6cb';
-        } else {
-          msg.style.background = 'rgba(255,255,255,0.06)'; msg.style.color='#fff'; msg.style.border='1px solid rgba(255,255,255,0.04)';
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
         }
-        // hide after 5s
-        clearTimeout(msg._hideTimer);
-        msg._hideTimer = setTimeout(()=>{ msg.style.display='none'; }, 5000);
-      }
-    })();
 
-    /* ===========================
-       Back to top + CTA behaviour
-       =========================== */
-    (function(){
-      const back = document.getElementById('backTop');
-      const cta = document.querySelector('.cta');
-
-      window.addEventListener('scroll', ()=>{
-        if(window.scrollY > 420) back.style.display = 'block';
-        else back.style.display = 'none';
-      }, {passive:true});
-
-      back.addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
-      cta.addEventListener('click', ()=>{
-        // scroll to contact
-        const contact = document.getElementById('contact');
-        contact.scrollIntoView({behavior:'smooth'});
-      });
-    })();
-
-    /* ===========================
-       Accessibility: allow keyboard toggle for dark mode (optional)
-       double-tap header logo to toggle dark for quick preview
-       =========================== */
-    (function(){
-      const brandBox = document.querySelector('.brand > div:first-child');
-      let lastTap = 0;
-      brandBox.addEventListener('click', ()=>{
-        const now = Date.now();
-        if(now - lastTap < 420){
-          document.body.classList.toggle('dark');
-          localStorage.setItem('site-theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background 0.5s ease, color 0.5s ease;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            cursor: default;
         }
-        lastTap = now;
-      });
-    })();
-  </script>
+
+        body.dark {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* ===== مؤشر مخصص ===== */
+        .cursor {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, width 0.3s, height 0.3s, background 0.3s;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            backdrop-filter: invert(1);
+        }
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: transform 0.08s ease-out;
+        }
+        body.dark .cursor {
+            border-color: var(--primary-light);
+            mix-blend-mode: difference;
+        }
+
+        /* ===== خلفية الجسيمات (Canvas) ===== */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        /* ===== حاوية عامة ===== */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* ===== شريط التنقل الزجاجي ===== */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: var(--surface-light);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border-light);
+            border-radius: 60px;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        body.dark .navbar {
+            background: var(--surface-dark);
+            border-color: var(--glass-border-dark);
+        }
+        .navbar.scrolled {
+            box-shadow: var(--shadow-lg);
+            background: rgba(255,255,255,0.9);
+        }
+        body.dark .navbar.scrolled {
+            background: rgba(20,22,30,0.9);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            font-family: var(--font-heading);
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .nav-brand i {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 40px;
+            transition: var(--transition);
+            position: relative;
+            font-size: 0.95rem;
+        }
+        body.dark .nav-links a {
+            color: var(--text-dark);
+        }
+        .nav-links a:hover {
+            background: rgba(108, 92, 231, 0.08);
+            color: var(--primary);
+        }
+        .theme-toggle {
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: transform 0.3s;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(108, 92, 231, 0.05);
+        }
+        body.dark .theme-toggle {
+            color: var(--gold);
+            background: rgba(253, 203, 110, 0.1);
+        }
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        /* ===== القسم الرئيسي (Hero) ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 100px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 5;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(108, 92, 231, 0.1);
+            color: var(--primary);
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(108, 92, 231, 0.25);
+        }
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--primary), var(--accent), #6c5ce7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientShift 4s ease infinite;
+        }
+        .hero .typing-wrapper {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-light);
+            min-height: 60px;
+            margin: 10px 0 20px;
+        }
+        body.dark .hero .typing-wrapper {
+            color: var(--text-dark);
+        }
+        #typing-text {
+            border-left: 4px solid var(--accent);
+            padding-left: 10px;
+            animation: blink 1s step-end infinite;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.85;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
+        }
+        .btn-primary:hover {
+            background: #5a4bd1;
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.6);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        body.dark .btn-outline {
+            border-color: var(--primary-light);
+            color: var(--primary-light);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+            100% { background-position: 0% center; }
+        }
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* ===== الأقسام العامة ===== */
+        section {
+            padding: 90px 0;
+            position: relative;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--primary);
+        }
+        .section-subtitle {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 50px;
+            opacity: 0.8;
+        }
+
+        /* ===== بطاقات زجاجية محسنة ===== */
+        .glass-card {
+            background: var(--surface-light);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border-light);
+            border-radius: var(--radius-xl);
+            padding: 35px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        body.dark .glass-card {
+            background: var(--surface-dark);
+            border-color: var(--glass-border-dark);
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(108, 92, 231, 0.3);
+        }
+
+        /* ===== عني ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        .about-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+        .about-image img {
+            width: 280px;
+            height: 280px;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            object-fit: cover;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            padding: 5px;
+            animation: morphBlob 8s ease-in-out infinite;
+        }
+        @keyframes morphBlob {
+            0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; }
+            100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+        }
+
+        /* ===== إحصائيات ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* ===== مهارات ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .skill-icon {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        body.dark .progress-bar {
+            background: #2d2d3a;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            transition: width 1.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* ===== مشاريع ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-xl);
+            transition: var(--transition);
+            background: var(--surface-light);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border-light);
+        }
+        body.dark .project-card {
+            background: var(--surface-dark);
+            border-color: var(--glass-border-dark);
+        }
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        .project-info {
+            padding: 25px;
+        }
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+        .tag {
+            background: rgba(108, 92, 231, 0.15);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ===== تواصل ===== */
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 16px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.5);
+            font-family: var(--font-body);
+            margin-bottom: 18px;
+            transition: var(--transition);
+        }
+        body.dark .contact-form input,
+        body.dark .contact-form textarea {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(108, 92, 231, 0.2);
+        }
+
+        /* ===== تذييل ===== */
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: rgba(108, 92, 231, 0.04);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(108, 92, 231, 0.1);
+        }
+
+        /* ===== تأثيرات الظهور ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== استجابة ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 10px 16px;
+                border-radius: 40px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- مؤشر مخصص -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- خلفية الجسيمات -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- شريط التنقل -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="nav-brand">
+            <i class="fa-solid fa-code"></i> صالح الخليفي
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">عني</a></li>
+            <li><a href="#skills">مهاراتي</a></li>
+            <li><a href="#projects">مشاريعي</a></li>
+            <li><a href="#contact">تواصل</a></li>
+        </ul>
+        <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+    </nav>
+
+    <!-- القسم الرئيسي -->
+    <section class="hero">
+        <div class="hero-content container">
+            <span class="hero-badge reveal">✨ مطور ويب إبداعي</span>
+            <h1 class="reveal">صالح الخليفي</h1>
+            <div class="typing-wrapper reveal">
+                <span id="typing-text"></span>
+            </div>
+            <p class="reveal">أبني تجارب رقمية استثنائية تجمع بين الأداء العالي والجمال البصري، وأساعدك في تحويل فكرتك إلى واقع ملموس.</p>
+            <div class="hero-cta reveal">
+                <a href="#projects" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> أعمالي</a>
+                <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-paper-plane"></i> تواصل معي</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- عني -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title reveal">عن المطور</h2>
+            <div class="about-grid">
+                <div class="about-image reveal">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%236c5ce7'/%3E%3Ctext x='50' y='55' text-anchor='middle' fill='white' font-size='24' font-family='Poppins'%3Eص خ%3C/text%3E%3C/svg%3E" alt="صالح الخليفي">
+                </div>
+                <div class="reveal">
+                    <p style="font-size: 1.2rem; margin-bottom: 20px;">
+                        أنا <strong>صالح الخليفي</strong>، مطور ويب شغوف ببناء حلول رقمية مبتكرة. أمتلك خبرة واسعة في تصميم وتطوير مواقع وتطبيقات ويب عالية الأداء، مع التركيز على تجربة المستخدم والتفاصيل الإبداعية.
+                    </p>
+                    <div class="stats-grid">
+                        <div class="stat-item reveal">
+                            <div class="stat-number" data-target="5">0</div>
+                            <div>سنوات خبرة</div>
+                        </div>
+                        <div class="stat-item reveal">
+                            <div class="stat-number" data-target="40">0</div>
+                            <div>مشروع مكتمل</div>
+                        </div>
+                        <div class="stat-item reveal">
+                            <div class="stat-number" data-target="30">0</div>
+                            <div>عميل سعيد</div>
+                        </div>
+                        <div class="stat-item reveal">
+                            <div class="stat-number" data-target="12">0</div>
+                            <div>تقنية مُستخدمة</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المهارات -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title reveal">المهارات التقنية</h2>
+            <p class="section-subtitle reveal">أدوات وتقنيات أستخدمها لبناء مشاريع قوية وقابلة للتوسع</p>
+            <div class="skills-grid">
+                <div class="glass-card reveal">
+                    <i class="fa-brands fa-html5 skill-icon"></i>
+                    <h3>HTML5 & CSS3</h3>
+                    <p>تصميم متجاوب، رسوم متحركة، وهياكل دلالية.</p>
+                    <div class="progress-bar"><div class="progress-fill" data-width="98"></div></div>
+                </div>
+                <div class="glass-card reveal">
+                    <i class="fa-brands fa-js skill-icon"></i>
+                    <h3>JavaScript (ES6+)</h3>
+                    <p>تطوير واجهات تفاعلية باستخدام React و Vue.</p>
+                    <div class="progress-bar"><div class="progress-fill" data-width="92"></div></div>
+                </div>
+                <div class="glass-card reveal">
+                    <i class="fa-solid fa-server skill-icon"></i>
+                    <h3>Node.js & Express</h3>
+                    <p>بناء APIs قوية وآمنة مع أداء ممتاز.</p>
+                    <div class="progress-bar"><div class="progress-fill" data-width="88"></div></div>
+                </div>
+                <div class="glass-card reveal">
+                    <i class="fa-solid fa-database skill-icon"></i>
+                    <h3>MongoDB & SQL</h3>
+                    <p>قواعد بيانات مرنة وتصميم فعّال للاستعلامات.</p>
+                    <div class="progress-bar"><div class="progress-fill" data-width="85"></div></div>
+                </div>
+                <div class="glass-card reveal">
+                    <i class="fa-brands fa-figma skill-icon"></i>
+                    <h3>UI/UX Design</h3>
+                    <p>تصميم تجربة مستخدم سلسة وجذابة بصريًا.</p>
+                    <div class="progress-bar"><div class="progress-fill" data-width="80"></div></div>
+                </div>
+                <div class="glass-card reveal">
+                    <i class="fa-brands fa-git-alt skill-icon"></i>
+                    <h3>Git & CI/CD</h3>
+                    <p>إدارة النسخ والتكامل المستمر بسلاسة.</p>
+                    <div class="progress-bar"><div class="progress-fill" data-width="90"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- المشاريع -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title reveal">آخر المشاريع</h2>
+            <p class="section-subtitle reveal">مجموعة من الأعمال التي تعكس الشغف والجودة</p>
+            <div class="projects-grid">
+                <div class="project-card reveal">
+                    <div class="project-image"><i class="fa-solid fa-newspaper"></i></div>
+                    <div class="project-info">
+                        <h3>منصة إدارة محتوى</h3>
+                        <p>نظام CMS متكامل متعدد اللغات مع لوحة تحكم مرنة.</p>
+                        <div class="project-tags">
+                            <span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <div class="project-image"><i class="fa-solid fa-cart-shopping"></i></div>
+                    <div class="project-info">
+                        <h3>متجر إلكتروني عصري</h3>
+                        <p>تجربة شراء سلسة مع بوابات دفع متعددة وسلة ذكية.</p>
+                        <div class="project-tags">
+                            <span class="tag">Next.js</span><span class="tag">Stripe</span><span class="tag">Tailwind</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card reveal">
+                    <div class="project-image"><i class="fa-solid fa-chart-line"></i></div>
+                    <div class="project-info">
+                        <h3>لوحة تحليلات</h3>
+                        <p>رسوم بيانية تفاعلية وتقارير أداء في الوقت الفعلي.</p>
+                        <div class="project-tags">
+                            <span class="tag">Vue.js</span><span class="tag">D3.js</span><span class="tag">Firebase</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تواصل -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title reveal">لنبدأ العمل معًا</h2>
+            <p class="section-subtitle reveal">أنا متاح للعمل الحر والمشاريع التعاونية. أرسل لي رسالة!</p>
+            <div class="glass-card reveal" style="max-width: 700px; margin: 0 auto;">
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="الاسم الكامل" required>
+                    <input type="email" placeholder="البريد الإلكتروني" required>
+                    <textarea rows="5" placeholder="تفاصيل المشروع أو الاستفسار..." required></textarea>
+                    <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+                        <i class="fa-solid fa-paper-plane"></i> إرسال الرسالة
+                    </button>
+                </form>
+                <div id="formMessage" style="margin-top: 15px; text-align: center; font-weight: 600;"></div>
+            </div>
+            <!-- روابط التواصل -->
+            <div style="display: flex; gap: 16px; justify-content: center; margin-top: 35px; flex-wrap: wrap;" class="reveal">
+                <a href="https://t.me/iSx3i" target="_blank" class="btn btn-outline"><i class="fa-brands fa-telegram"></i> تلغرام</a>
+                <a href="mailto:yemenfmfm@gmail.com" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> إيميل</a>
+                <a href="https://wa.me/967774033125" target="_blank" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 <strong>صالح الخليفي</strong> · جميع الحقوق محفوظة · صُنع بحب <i class="fa-solid fa-heart" style="color: var(--primary);"></i></p>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // ========== الوضع الداكن ==========
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                body.classList.add('dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                const isDark = body.classList.contains('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                themeIcon.classList.toggle('fa-moon', !isDark);
+                themeIcon.classList.toggle('fa-sun', isDark);
+            });
+
+            // ========== شريط التنقل ==========
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                navbar.classList.toggle('scrolled', window.scrollY > 50);
+            });
+
+            // ========== مؤشر مخصص ==========
+            const cursor = document.querySelector('.cursor');
+            const cursorDot = document.querySelector('.cursor-dot');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseleave', () => {
+                cursor.style.opacity = '0';
+                cursorDot.style.opacity = '0';
+            });
+            document.addEventListener('mouseenter', () => {
+                cursor.style.opacity = '1';
+                cursorDot.style.opacity = '1';
+            });
+
+            // ========== خلفية الجسيمات ==========
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let w, h;
+
+            function resizeCanvas() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * w;
+                    this.y = Math.random() * h;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.radius = Math.random() * 2.5 + 0.8;
+                }
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > w) this.vx *= -1;
+                    if (this.y < 0 || this.y > h) this.vy *= -1;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = body.classList.contains('dark') ? 'rgba(255,255,255,0.4)' : 'rgba(108,92,231,0.25)';
+                    ctx.fill();
+                }
+            }
+
+            function initParticles(num = 70) {
+                particles = [];
+                for (let i = 0; i < num; i++) particles.push(new Particle());
+            }
+            initParticles();
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, w, h);
+                particles.forEach(p => { p.update(); p.draw(); });
+                // خطوط بين الجسيمات القريبة
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 110) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = body.classList.contains('dark') ? 'rgba(255,255,255,0.04)' : 'rgba(108,92,231,0.08)';
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animateParticles);
+            }
+            animateParticles();
+
+            // ========== تأثير الكتابة ==========
+            const typingEl = document.getElementById('typing-text');
+            const phrases = ['مطور ويب إبداعي', 'مهندس تجربة مستخدم', 'عاشق للتفاصيل', 'أبني المستقبل الرقمي'];
+            let phraseIndex = 0, charIndex = 0, isDeleting = false;
+            function typeEffect() {
+                const current = phrases[phraseIndex];
+                typingEl.textContent = current.substring(0, charIndex);
+                if (!isDeleting && charIndex < current.length) {
+                    charIndex++;
+                    setTimeout(typeEffect, 100);
+                } else if (isDeleting && charIndex > 0) {
+                    charIndex--;
+                    setTimeout(typeEffect, 50);
+                } else {
+                    isDeleting = !isDeleting;
+                    if (!isDeleting) phraseIndex = (phraseIndex + 1) % phrases.length;
+                    setTimeout(typeEffect, isDeleting ? 600 : 200);
+                }
+            }
+            typeEffect();
+
+            // ========== عداد الإحصائيات ==========
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const observerStats = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        const target = +el.getAttribute('data-target');
+                        let current = 0;
+                        const increment = target / 40;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                el.textContent = target + '+';
+                                clearInterval(timer);
+                            } else {
+                                el.textContent = Math.floor(current) + '+';
+                            }
+                        }, 30);
+                        observerStats.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            statNumbers.forEach(num => observerStats.observe(num));
+
+            // ========== شرائط التقدم ==========
+            const progressFills = document.querySelectorAll('.progress-fill');
+            const observerProgress = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.width = entry.target.getAttribute('data-width') + '%';
+                        observerProgress.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.6 });
+            progressFills.forEach(fill => observerProgress.observe(fill));
+
+            // ========== تأثير الظهور العام ==========
+            const revealElements = document.querySelectorAll('.reveal');
+            const observerReveal = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observerReveal.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            revealElements.forEach(el => observerReveal.observe(el));
+
+            // ========== نموذج التواصل ==========
+            const form = document.getElementById('contactForm');
+            const formMsg = document.getElementById('formMessage');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                formMsg.style.color = 'var(--primary)';
+                formMsg.textContent = 'تم إرسال رسالتك بنجاح! سأتواصل معك قريبًا.';
+                form.reset();
+                setTimeout(() => { formMsg.textContent = ''; }, 5000);
+            });
+
+        })();
+    </script>
 </body>
 </html>
- 
