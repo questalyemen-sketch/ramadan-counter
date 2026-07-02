@@ -4,10 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>صالح الخليفي | مطور ويب إبداعي ومبتكر</title>
+
+<!-- تحسين SEO -->
+<meta name="description" content="صالح الخليفي، مطور ويب متكامل من اليمن، يبني تجارب رقمية إبداعية باستخدام React، Node.js، وواجهات UI/UX عصرية.">
+<meta name="keywords" content="صالح الخليفي, مطور ويب, Full-stack, React, Node.js, تطوير مواقع, واجهات مستخدم, اليمن">
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "صالح الخليفي",
+  "jobTitle": "Full-stack Web Developer",
+  "url": "https://example.com",
+  "sameAs": [
+    "https://t.me/iSx3i",
+    "https://wa.me/967774033125"
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Lalezar&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <style>
 :root{
   --primary:#7c5cff;
@@ -16,8 +37,8 @@
   --accent-2:#ffd166;
   --bg-light:#f5f3ff;
   --bg-dark:#07070d;
-  --surface-light:rgba(255,255,255,.6);
-  --surface-dark:rgba(18,18,28,.55);
+  --surface-light:rgba(255,255,255,.7); /* زيادة قليلًا لتحسين التباين */
+  --surface-dark:rgba(18,18,28,.7);
   --border-light:rgba(255,255,255,.55);
   --border-dark:rgba(255,255,255,.08);
   --text-light:#161225;
@@ -27,13 +48,14 @@
   --shadow-sm:0 10px 30px rgba(30,20,60,.08);
   --shadow-md:0 20px 50px rgba(30,20,60,.14);
   --shadow-lg:0 35px 80px -20px rgba(30,20,60,.35);
-  --blur:22px;
+  --blur:16px; /* تخفيف قيمة البلور لأداء أفضل [web:20] */
   --r-xl:32px;--r-lg:24px;--r-md:16px;
   --ease:cubic-bezier(.16,1,.3,1);
   --font-head:'Lalezar','Space Grotesk',sans-serif;
   --font-en:'Space Grotesk',sans-serif;
   --font-body:'Tajawal',sans-serif;
 }
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:16px}
 body{
@@ -47,7 +69,15 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 body.dark{background:var(--bg-dark);color:var(--text-dark)}
+body.focus-mode .mesh-blob,
+body.focus-mode #particle-canvas{
+  display:none; /* وضع التركيز: تعطيل الخلفيات المتحركة */
+}
+body.focus-mode .hero h1{
+  animation:none;
+}
 
+/* خلفية الزجاجية مع fallback للشفافية وتقليلها عند تفضيل المستخدم [web:19][web:20] */
 .mesh-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg-light);transition:background .6s ease}
 body.dark .mesh-bg{background:var(--bg-dark)}
 .mesh-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:float 18s ease-in-out infinite}
@@ -59,6 +89,7 @@ body.dark .mesh-blob{opacity:.35}
 #particle-canvas{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
 body.dark #particle-canvas{opacity:.35}
 
+/* مؤشر الفأرة */
 .cursor{width:34px;height:34px;border:2px solid var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s ease,width .3s,height .3s,border-color .3s;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:.85}
 .cursor-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:transform .08s ease-out}
 .cursor.grow{width:56px;height:56px;border-color:var(--accent)}
@@ -66,9 +97,58 @@ body.dark #particle-canvas{opacity:.35}
 
 .container{max-width:1240px;margin:0 auto;padding:0 25px}
 
-.navbar{position:fixed;top:22px;left:50%;transform:translateX(-50%);width:calc(100% - 44px);max-width:1240px;background:var(--surface-light);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));border:1px solid var(--border-light);border-radius:60px;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;z-index:1000;box-shadow:var(--shadow-sm);transition:var(--ease) .4s}
-body.dark .navbar{background:var(--surface-dark);border-color:var(--border-dark)}
-.navbar.scrolled{box-shadow:var(--shadow-md)}
+/* الزجاجية مع fallback عند عدم دعم backdrop-filter + تفضيل تقليل الشفافية [web:19][web:20] */
+.glass-surface{
+  background:var(--surface-light);
+  border:1px solid var(--border-light);
+  box-shadow:var(--shadow-sm);
+}
+body.dark .glass-surface{
+  background:var(--surface-dark);
+  border-color:var(--border-dark);
+}
+
+@supports(backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  .glass-surface{
+    backdrop-filter:blur(var(--blur));
+    -webkit-backdrop-filter:blur(var(--blur));
+  }
+}
+
+/* تفضيل تقليل الشفافية [web:19][web:20] */
+@media (prefers-reduced-transparency: reduce){
+  .glass-surface{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:#ffffff;
+    border-color:rgba(0,0,0,.08);
+  }
+  body.dark .glass-surface{
+    background:#111111;
+    border-color:rgba(255,255,255,.18);
+  }
+}
+
+/* تخفيف الحركة عند prefers-reduced-motion [web:11][web:12][web:18] */
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation-duration:0.001s !important;
+    animation-iteration-count:1 !important;
+    transition:none !important;
+    scroll-behavior:auto;
+  }
+}
+
+/* Navbar */
+.navbar{
+  position:fixed;top:22px;left:50%;transform:translateX(-50%);
+  width:calc(100% - 44px);max-width:1240px;
+  border-radius:60px;padding:14px 28px;
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:1000;transition:var(--ease) .4s;
+}
+.navbar.glass-surface{}
+.navbar.scrolled{box-shadow:var(--shadow-md);}
 .nav-brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.5rem;font-family:var(--font-head);color:var(--primary);text-decoration:none}
 .nav-brand i{font-size:1.9rem;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-links{display:flex;list-style:none;gap:6px}
@@ -76,16 +156,24 @@ body.dark .navbar{background:var(--surface-dark);border-color:var(--border-dark)
 body.dark .nav-links a{color:var(--text-dark)}
 .nav-links a:hover{background:rgba(124,92,255,.12);color:var(--primary)}
 .nav-actions{display:flex;align-items:center;gap:10px}
-.theme-toggle,.menu-toggle{background:rgba(124,92,255,.12);border:none;font-size:1.4rem;cursor:pointer;color:var(--primary);width:46px;height:46px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:.3s}
+.theme-toggle,.menu-toggle,.focus-toggle{
+  background:rgba(124,92,255,.12);border:none;font-size:1.2rem;cursor:pointer;
+  width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:.3s;color:var(--primary);
+}
 body.dark .theme-toggle{color:var(--accent-2);background:rgba(255,209,102,.14)}
-.theme-toggle:hover,.menu-toggle:hover{transform:scale(1.1) rotate(15deg)}
+.theme-toggle:hover,.menu-toggle:hover,.focus-toggle:hover{transform:scale(1.1) rotate(10deg)}
 .menu-toggle{display:none}
-.mobile-menu{position:fixed;top:95px;left:22px;right:22px;background:var(--surface-light);backdrop-filter:blur(var(--blur));border:1px solid var(--border-light);border-radius:var(--r-lg);padding:20px;z-index:999;box-shadow:var(--shadow-md);display:none;flex-direction:column;gap:6px}
-body.dark .mobile-menu{background:var(--surface-dark);border-color:var(--border-dark)}
+
+.mobile-menu{
+  position:fixed;top:95px;left:22px;right:22px;border-radius:var(--r-lg);padding:20px;z-index:999;
+  display:none;flex-direction:column;gap:6px;
+}
+.mobile-menu.glass-surface{}
 .mobile-menu.open{display:flex}
 .mobile-menu a{color:inherit;text-decoration:none;font-weight:700;padding:14px 18px;border-radius:14px;transition:.3s}
 .mobile-menu a:hover{background:rgba(124,92,255,.12);color:var(--primary)}
 
+/* Hero */
 .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;padding:150px 0 60px}
 .hero-content{position:relative;z-index:5;max-width:920px}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,92,255,.14);color:var(--primary);padding:10px 24px;border-radius:50px;font-weight:700;font-size:.92rem;margin-bottom:26px;border:1px solid rgba(124,92,255,.3)}
@@ -95,8 +183,15 @@ body.dark .mobile-menu{background:var(--surface-dark);border-color:var(--border-
 .hero p{font-size:1.22rem;max-width:740px;margin:0 auto 36px;color:var(--muted-light)}
 body.dark .hero p{color:var(--muted-dark)}
 .hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-.btn{padding:17px 36px;border-radius:50px;font-weight:800;text-decoration:none;transition:var(--ease) .4s;display:inline-flex;align-items:center;gap:10px;font-size:1.02rem;border:none;cursor:pointer;position:relative;overflow:hidden}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;box-shadow:0 15px 35px rgba(124,92,255,.4)}
+.btn{
+  padding:17px 36px;border-radius:50px;font-weight:800;text-decoration:none;
+  transition:var(--ease) .4s;display:inline-flex;align-items:center;gap:10px;
+  font-size:1.02rem;border:none;cursor:pointer;position:relative;overflow:hidden;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;
+  box-shadow:0 15px 35px rgba(124,92,255,.4);
+}
 .btn-primary:hover{transform:translateY(-5px);box-shadow:0 22px 45px rgba(124,92,255,.55)}
 .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}
 body.dark .btn-outline{border-color:var(--accent-2);color:var(--accent-2)}
@@ -108,14 +203,23 @@ body.dark .btn-outline:hover{background:var(--accent-2);color:#111}
 .scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.7;font-size:.85rem;animation:bob 2s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 
+/* Sections */
 section{padding:110px 0;position:relative}
-.section-title{font-family:var(--font-head);font-size:clamp(2.4rem,6vw,4rem);font-weight:400;margin-bottom:18px;text-align:center;background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.section-title{
+  font-family:var(--font-head);font-size:clamp(2.4rem,6vw,4rem);font-weight:400;margin-bottom:18px;text-align:center;
+  background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
 .section-subtitle{text-align:center;max-width:700px;margin:0 auto 65px;font-size:1.12rem;color:var(--muted-light)}
 body.dark .section-subtitle{color:var(--muted-dark)}
-.eyebrow{display:block;text-align:center;font-family:var(--font-en);letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:.8rem;margin-bottom:10px}
+.eyebrow{
+  display:block;text-align:center;font-family:var(--font-en);letter-spacing:3px;text-transform:uppercase;color:var(--accent);font-weight:700;font-size:.8rem;margin-bottom:10px;
+}
 
-.glass-card{background:var(--surface-light);backdrop-filter:blur(var(--blur));-webkit-backdrop-filter:blur(var(--blur));border:1px solid var(--border-light);border-radius:var(--r-xl);padding:38px;box-shadow:var(--shadow-sm);transition:var(--ease) .4s;position:relative;overflow:hidden}
-body.dark .glass-card{background:var(--surface-dark);border-color:var(--border-dark)}
+/* Cards */
+.glass-card{
+  border-radius:var(--r-xl);padding:38px;transition:var(--ease) .4s;position:relative;overflow:hidden;
+}
+.glass-card.glass-surface{}
 .glass-card:hover{transform:translateY(-10px) scale(1.015);box-shadow:var(--shadow-lg);border-color:rgba(124,92,255,.4)}
 
 .about-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:60px;align-items:center}
@@ -126,8 +230,8 @@ body.dark .glass-card{background:var(--surface-dark);border-color:var(--border-d
 @keyframes rot{to{transform:rotate(360deg)}}
 
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px;margin-top:45px;text-align:center}
-.stat-item{padding:24px 16px;border-radius:var(--r-lg);background:var(--surface-light);border:1px solid var(--border-light);box-shadow:var(--shadow-sm);transition:var(--ease) .4s}
-body.dark .stat-item{background:var(--surface-dark);border-color:var(--border-dark)}
+.stat-item{padding:24px 16px;border-radius:var(--r-lg);transition:var(--ease) .4s;}
+.stat-item.glass-surface{}
 .stat-item:hover{transform:translateY(-6px)}
 .stat-number{font-family:var(--font-en);font-size:3.2rem;font-weight:700;background:linear-gradient(90deg,var(--primary),var(--primary-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .stat-item div:last-child{font-size:1.02rem;margin-top:6px}
@@ -142,8 +246,10 @@ body.dark .progress-bar{background:rgba(255,255,255,.08)}
 .progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));border-radius:10px;transition:width 1.6s var(--ease)}
 
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px}
-.project-card{border-radius:var(--r-xl);overflow:hidden;transition:var(--ease) .4s;background:var(--surface-light);backdrop-filter:blur(var(--blur));border:1px solid var(--border-light);box-shadow:var(--shadow-sm);text-align:center}
-body.dark .project-card{background:var(--surface-dark);border-color:var(--border-dark)}
+.project-card{
+  border-radius:var(--r-xl);overflow:hidden;transition:var(--ease) .4s;text-align:center;
+}
+.project-card.glass-surface{}
 .project-card:hover{transform:translateY(-10px) scale(1.015);box-shadow:var(--shadow-lg);border-color:rgba(124,92,255,.4)}
 .project-image{height:210px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;font-size:3.3rem;color:#fff}
 .project-info{padding:30px}
@@ -151,15 +257,26 @@ body.dark .project-card{background:var(--surface-dark);border-color:var(--border
 .project-info p{font-size:1rem;color:var(--muted-light);margin-bottom:14px}
 body.dark .project-info p{color:var(--muted-dark)}
 .project-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.project-tags[dir="ltr"]{text-align:left}
 .tag{background:rgba(124,92,255,.14);color:var(--primary);padding:6px 15px;border-radius:25px;font-size:.82rem;font-weight:700;font-family:var(--font-en);transition:.3s}
 body.dark .tag{color:var(--accent-2)}
 .tag:hover{background:var(--primary);color:#fff}
 
-.contact-form{max-width:700px;margin:0 auto;padding:42px;border-radius:var(--r-xl);background:var(--surface-light);backdrop-filter:blur(var(--blur));border:1px solid var(--border-light);box-shadow:var(--shadow-sm)}
-body.dark .contact-form{background:var(--surface-dark);border-color:var(--border-dark)}
-.contact-form input,.contact-form textarea{width:100%;padding:17px;border-radius:var(--r-md);border:1px solid rgba(0,0,0,.12);background:rgba(255,255,255,.6);font-family:var(--font-body);font-size:1rem;margin-bottom:18px;transition:.3s;color:var(--text-light)}
-body.dark .contact-form input,body.dark .contact-form textarea{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:var(--text-dark)}
-.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(124,92,255,.18)}
+/* Contact */
+.contact-form{
+  max-width:700px;margin:0 auto;padding:42px;border-radius:var(--r-xl);
+}
+.contact-form.glass-surface{}
+.contact-form input,.contact-form textarea{
+  width:100%;padding:17px;border-radius:var(--r-md);border:1px solid rgba(0,0,0,.12);
+  background:rgba(255,255,255,.9);font-family:var(--font-body);font-size:1rem;margin-bottom:18px;transition:.3s;color:var(--text-light);
+}
+body.dark .contact-form input,body.dark .contact-form textarea{
+  background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:var(--text-dark);
+}
+.contact-form input:focus,.contact-form textarea:focus{
+  outline:none;border-color:var(--primary);box-shadow:0 0 0 4px rgba(124,92,255,.18);
+}
 
 .social-row{display:flex;gap:16px;justify-content:center;margin-top:42px;flex-wrap:wrap}
 
@@ -167,7 +284,10 @@ footer{text-align:center;padding:40px;background:rgba(124,92,255,.05);backdrop-f
 footer strong{color:var(--primary)}
 footer .fa-heart{color:#ff5c8a;margin:0 5px}
 
-#scroll-to-top{position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transition:.3s;z-index:999}
+/* Scroll to top */
+#scroll-to-top{
+  position:fixed;bottom:30px;left:30px;width:50px;height:50px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;cursor:pointer;box-shadow:var(--shadow-md);opacity:0;visibility:hidden;transition:.3s;z-index:999;
+}
 #scroll-to-top.visible{opacity:1;visibility:visible}
 #scroll-to-top:hover{transform:translateY(-5px) scale(1.05)}
 
@@ -196,6 +316,7 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
 <body>
 <div class="cursor"></div>
 <div class="cursor-dot"></div>
+
 <div class="mesh-bg">
   <div class="mesh-blob b1"></div>
   <div class="mesh-blob b2"></div>
@@ -203,7 +324,7 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
 </div>
 <canvas id="particle-canvas"></canvas>
 
-<nav class="navbar" id="navbar">
+<nav class="navbar glass-surface" id="navbar">
   <a href="#" class="nav-brand"><i class="fa-solid fa-code"></i> صالح الخليفي</a>
   <ul class="nav-links">
     <li><a href="#about">عني</a></li>
@@ -212,11 +333,27 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
     <li><a href="#contact">تواصل</a></li>
   </ul>
   <div class="nav-actions">
-    <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع"><i class="fa-solid fa-moon"></i></button>
-    <button class="menu-toggle" id="menuToggle" aria-label="القائمة"><i class="fa-solid fa-bars"></i></button>
+    <!-- تبديل الثيم -->
+    <button class="theme-toggle" id="themeToggle" aria-label="تبديل الوضع">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+    <!-- وضع التركيز -->
+    <button class="focus-toggle" id="focusToggle" aria-label="وضع التركيز">
+      <i class="fa-solid fa-eye"></i>
+    </button>
+    <!-- قائمة الجوال مع ARIA محسّنة -->
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      aria-label="القائمة"
+      aria-expanded="false"
+      aria-controls="mobileMenu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu">
+
+<div class="mobile-menu glass-surface" id="mobileMenu">
   <a href="#about">عني</a>
   <a href="#skills">مهاراتي</a>
   <a href="#projects">مشاريعي</a>
@@ -239,7 +376,7 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
 
 <section id="about">
   <div class="container">
-    <span class="eyebrow reveal">About</span>
+    <span class="eyebrow reveal" dir="ltr">About</span>
     <h2 class="section-title reveal">من أنا؟</h2>
     <p class="section-subtitle reveal">أنا مطور ويب شغوف ببناء حلول رقمية مبتكرة، أجمع بين الإبداع التقني والتصميم الجذاب لتقديم تجارب مستخدم فريدة.</p>
     <div class="about-grid">
@@ -247,12 +384,27 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
         <img src="https://via.placeholder.com/320/7c5cff/ffffff?text=S.K" alt="صالح الخليفي">
       </div>
       <div class="reveal">
-        <p style="font-size:1.2rem;margin-bottom:22px">أنا <strong>صالح الخليفي</strong>، مطور ويب متكامل (Full-stack) متحمس لتحويل الأفكار المعقدة إلى واجهات مستخدم سهلة الاستخدام وأنظمة خلفية قوية. أمتلك خبرة واسعة في تصميم وتطوير مواقع وتطبيقات ويب عالية الأداء، مع التركيز على تجربة المستخدم والتفاصيل الإبداعية.</p>
+        <p style="font-size:1.2rem;margin-bottom:22px">
+          أنا <strong>صالح الخليفي</strong>، مطور ويب متكامل (Full-stack) متحمس لتحويل الأفكار المعقدة إلى واجهات مستخدم سهلة الاستخدام وأنظمة خلفية قوية.
+          أمتلك خبرة واسعة في تصميم وتطوير مواقع وتطبيقات ويب عالية الأداء، مع التركيز على تجربة المستخدم والتفاصيل الإبداعية.
+        </p>
         <div class="stats-grid">
-          <div class="stat-item reveal"><div class="stat-number" data-target="5">0</div><div>سنوات خبرة</div></div>
-          <div class="stat-item reveal"><div class="stat-number" data-target="40">0</div><div>مشروع مكتمل</div></div>
-          <div class="stat-item reveal"><div class="stat-number" data-target="30">0</div><div>عميل سعيد</div></div>
-          <div class="stat-item reveal"><div class="stat-number" data-target="12">0</div><div>تقنية رئيسية</div></div>
+          <div class="stat-item glass-surface reveal">
+            <div class="stat-number" data-target="5">0</div>
+            <div>سنوات خبرة</div>
+          </div>
+          <div class="stat-item glass-surface reveal">
+            <div class="stat-number" data-target="40">0</div>
+            <div>مشروع مكتمل</div>
+          </div>
+          <div class="stat-item glass-surface reveal">
+            <div class="stat-number" data-target="30">0</div>
+            <div>عميل سعيد</div>
+          </div>
+          <div class="stat-item glass-surface reveal">
+            <div class="stat-number" data-target="12">0</div>
+            <div>تقنية رئيسية</div>
+          </div>
         </div>
       </div>
     </div>
@@ -261,59 +413,151 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
 
 <section id="skills">
   <div class="container">
-    <span class="eyebrow reveal">Skills</span>
+    <span class="eyebrow reveal" dir="ltr">Skills</span>
     <h2 class="section-title reveal">المهارات التقنية</h2>
     <p class="section-subtitle reveal">أدوات وتقنيات أستخدمها لبناء مشاريع قوية، متجاوبة، وقابلة للتوسع.</p>
     <div class="skills-grid">
-      <div class="glass-card reveal"><i class="fa-brands fa-html5 skill-icon"></i><h3>HTML5 & CSS3</h3><p>هياكل دلالية قوية، تصميم متجاوب، ورسوم متحركة سلسة.</p><div class="progress-bar"><div class="progress-fill" data-width="98"></div></div></div>
-      <div class="glass-card reveal"><i class="fa-brands fa-js skill-icon"></i><h3>JavaScript ES6+</h3><p>تطوير واجهات تفاعلية باستخدام React و Vue.js.</p><div class="progress-bar"><div class="progress-fill" data-width="92"></div></div></div>
-      <div class="glass-card reveal"><i class="fa-solid fa-server skill-icon"></i><h3>Node.js & Express</h3><p>بناء APIs قوية، آمنة، وذات أداء ممتاز.</p><div class="progress-bar"><div class="progress-fill" data-width="88"></div></div></div>
-      <div class="glass-card reveal"><i class="fa-solid fa-database skill-icon"></i><h3>MongoDB & SQL</h3><p>قواعد بيانات مرنة، تصميم مخططات فعّالة، وتحسين استعلامات.</p><div class="progress-bar"><div class="progress-fill" data-width="85"></div></div></div>
-      <div class="glass-card reveal"><i class="fa-brands fa-figma skill-icon"></i><h3>UI/UX Design</h3><p>تصميم تجربة مستخدم سلسة وجذابة بصريًا لتعزيز التفاعل.</p><div class="progress-bar"><div class="progress-fill" data-width="80"></div></div></div>
-      <div class="glass-card reveal"><i class="fa-brands fa-git-alt skill-icon"></i><h3>Git & CI/CD</h3><p>إدارة النسخ، التعاون الفعال، والتكامل المستمر بسلاسة.</p><div class="progress-bar"><div class="progress-fill" data-width="90"></div></div></div>
+      <div class="glass-card glass-surface reveal">
+        <i class="fa-brands fa-html5 skill-icon"></i>
+        <h3 dir="ltr">HTML5 &amp; CSS3</h3>
+        <p>هياكل دلالية قوية، تصميم متجاوب، ورسوم متحركة سلسة.</p>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="98"></div>
+        </div>
+      </div>
+      <div class="glass-card glass-surface reveal">
+        <i class="fa-brands fa-js skill-icon"></i>
+        <h3 dir="ltr">JavaScript ES6+</h3>
+        <p>تطوير واجهات تفاعلية باستخدام React و Vue.js.</p>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="92"></div>
+        </div>
+      </div>
+      <div class="glass-card glass-surface reveal">
+        <i class="fa-solid fa-server skill-icon"></i>
+        <h3 dir="ltr">Node.js &amp; Express</h3>
+        <p>بناء APIs قوية، آمنة، وذات أداء ممتاز.</p>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="88"></div>
+        </div>
+      </div>
+      <div class="glass-card glass-surface reveal">
+        <i class="fa-solid fa-database skill-icon"></i>
+        <h3 dir="ltr">MongoDB &amp; SQL</h3>
+        <p>قواعد بيانات مرنة، تصميم مخططات فعّالة، وتحسين استعلامات.</p>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="85"></div>
+        </div>
+      </div>
+      <div class="glass-card glass-surface reveal">
+        <i class="fa-brands fa-figma skill-icon"></i>
+        <h3 dir="ltr">UI/UX Design</h3>
+        <p>تصميم تجربة مستخدم سلسة وجذابة بصريًا لتعزيز التفاعل.</p>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="80"></div>
+        </div>
+      </div>
+      <div class="glass-card glass-surface reveal">
+        <i class="fa-brands fa-git-alt skill-icon"></i>
+        <h3 dir="ltr">Git &amp; CI/CD</h3>
+        <p>إدارة النسخ، التعاون الفعال، والتكامل المستمر بسلاسة.</p>
+        <div class="progress-bar">
+          <div class="progress-fill" data-width="90"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="projects">
   <div class="container">
-    <span class="eyebrow reveal">Work</span>
+    <span class="eyebrow reveal" dir="ltr">Work</span>
     <h2 class="section-title reveal">أحدث مشاريعي</h2>
     <p class="section-subtitle reveal">مجموعة من الأعمال التي تعكس الشغف بالجودة والابتكار في عالم تطوير الويب.</p>
     <div class="projects-grid">
-      <div class="project-card reveal"><div class="project-image"><i class="fa-solid fa-newspaper"></i></div><div class="project-info"><h3>منصة إدارة محتوى متقدمة</h3><p>نظام CMS متكامل متعدد اللغات مع لوحة تحكم مرنة وإدارة مستخدمين.</p><div class="project-tags"><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">GraphQL</span></div></div></div>
-      <div class="project-card reveal"><div class="project-image"><i class="fa-solid fa-cart-shopping"></i></div><div class="project-info"><h3>متجر إلكتروني عصري</h3><p>تجربة شراء سلسة مع بوابات دفع متعددة، سلة ذكية، وتتبع للطلبات.</p><div class="project-tags"><span class="tag">Next.js</span><span class="tag">Stripe</span><span class="tag">Tailwind</span><span class="tag">Redux</span></div></div></div>
-      <div class="project-card reveal"><div class="project-image"><i class="fa-solid fa-chart-line"></i></div><div class="project-info"><h3>لوحة تحكم وتحليلات تفاعلية</h3><p>رسوم بيانية تفاعلية، تقارير أداء في الوقت الفعلي، وتخصيص سهل.</p><div class="project-tags"><span class="tag">Vue.js</span><span class="tag">D3.js</span><span class="tag">Firebase</span><span class="tag">TypeScript</span></div></div></div>
+      <div class="project-card glass-surface reveal">
+        <div class="project-image"><i class="fa-solid fa-newspaper"></i></div>
+        <div class="project-info">
+          <h3>منصة إدارة محتوى متقدمة</h3>
+          <p>نظام CMS متكامل متعدد اللغات مع لوحة تحكم مرنة وإدارة مستخدمين.</p>
+          <div class="project-tags" dir="ltr">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">GraphQL</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card glass-surface reveal">
+        <div class="project-image"><i class="fa-solid fa-cart-shopping"></i></div>
+        <div class="project-info">
+          <h3>متجر إلكتروني عصري</h3>
+          <p>تجربة شراء سلسة مع بوابات دفع متعددة، سلة ذكية، وتتبع للطلبات.</p>
+          <div class="project-tags" dir="ltr">
+            <span class="tag">Next.js</span>
+            <span class="tag">Stripe</span>
+            <span class="tag">Tailwind</span>
+            <span class="tag">Redux</span>
+          </div>
+        </div>
+      </div>
+      <div class="project-card glass-surface reveal">
+        <div class="project-image"><i class="fa-solid fa-chart-line"></i></div>
+        <div class="project-info">
+          <h3>لوحة تحكم وتحليلات تفاعلية</h3>
+          <p>رسوم بيانية تفاعلية، تقارير أداء في الوقت الفعلي، وتخصيص سهل.</p>
+          <div class="project-tags" dir="ltr">
+            <span class="tag">Vue.js</span>
+            <span class="tag">D3.js</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">TypeScript</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <section id="contact">
   <div class="container">
-    <span class="eyebrow reveal">Contact</span>
+    <span class="eyebrow reveal" dir="ltr">Contact</span>
     <h2 class="section-title reveal">لنبدأ مشروعك القادم</h2>
     <p class="section-subtitle reveal">أنا متاح حاليًا للعمل الحر والمشاريع التعاونية. دعنا نحول أفكارك إلى واقع!</p>
-    <div class="contact-form reveal">
+    <div class="contact-form glass-surface reveal">
       <form id="contactForm">
-        <input type="text" placeholder="الاسم الكامل" required>
-        <input type="email" placeholder="البريد الإلكتروني" required>
-        <textarea rows="6" placeholder="تفاصيل المشروع أو استفسارك..." required></textarea>
-        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center"><i class="fa-solid fa-paper-plane"></i> إرسال الرسالة</button>
+        <input type="text" id="fullName" placeholder="الاسم الكامل" required aria-label="الاسم الكامل">
+        <input type="email" id="email" placeholder="البريد الإلكتروني" required aria-label="البريد الإلكتروني">
+        <textarea rows="6" id="message" placeholder="تفاصيل المشروع أو استفسارك..." required aria-label="تفاصيل الرسالة"></textarea>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">
+          <i class="fa-solid fa-paper-plane"></i> إرسال الرسالة
+        </button>
       </form>
       <div id="formMessage" style="margin-top:20px;text-align:center;font-weight:700;font-size:1.1rem"></div>
     </div>
     <div class="social-row reveal">
-      <a href="https://t.me/iSx3i" target="_blank" class="btn btn-outline"><i class="fa-brands fa-telegram"></i> تلغرام</a>
-      <a href="mailto:yemenfmfm@gmail.com" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> إيميل</a>
-      <a href="https://wa.me/967774033125" target="_blank" class="btn btn-outline"><i class="fa-brands fa-whatsapp"></i> واتساب</a>
-      <a href="#" target="_blank" class="btn btn-outline"><i class="fa-brands fa-x-twitter"></i> تويتر</a>
-      <a href="#" target="_blank" class="btn btn-outline"><i class="fa-brands fa-linkedin-in"></i> لينكدإن</a>
+      <a href="https://t.me/iSx3i" target="_blank" class="btn btn-outline" aria-label="تلغرام">
+        <i class="fa-brands fa-telegram"></i> تلغرام
+      </a>
+      <a href="mailto:yemenfmfm@gmail.com" class="btn btn-outline" aria-label="إيميل">
+        <i class="fa-solid fa-envelope"></i> إيميل
+      </a>
+      <a href="https://wa.me/967774033125" target="_blank" class="btn btn-outline" aria-label="واتساب">
+        <i class="fa-brands fa-whatsapp"></i> واتساب
+      </a>
+      <a href="#" target="_blank" class="btn btn-outline" aria-label="تويتر">
+        <i class="fa-brands fa-x-twitter"></i> تويتر
+      </a>
+      <a href="#" target="_blank" class="btn btn-outline" aria-label="لينكدإن">
+        <i class="fa-brands fa-linkedin-in"></i> لينكدإن
+      </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container"><p>© 2026 <strong>صالح الخليفي</strong> · جميع الحقوق محفوظة · صُنع بحب <i class="fa-solid fa-heart"></i></p></div>
+  <div class="container">
+    <p>© 2026 <strong>صالح الخليفي</strong> · جميع الحقوق محفوظة · صُنع بحب <i class="fa-solid fa-heart"></i></p>
+  </div>
 </footer>
 
 <button id="scroll-to-top" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
@@ -321,48 +565,75 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
 <script>
 (function(){
   const body=document.body;
-  const themeToggle=document.getElementById('themeToggle');
-  const themeIcon=themeToggle.querySelector('i');
-  const saved=localStorage.getItem('theme');
-  if(saved==='dark'||(!saved&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
-    body.classList.add('dark');themeIcon.classList.replace('fa-moon','fa-sun');
+
+  /* 1. تهيئة الثيم */
+  function initTheme(){
+    const themeToggle=document.getElementById('themeToggle');
+    const themeIcon=themeToggle.querySelector('i');
+    const saved=localStorage.getItem('theme');
+    if(saved==='dark'||(!saved&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
+      body.classList.add('dark');
+      themeIcon.classList.replace('fa-moon','fa-sun');
+    }
+    themeToggle.addEventListener('click',()=>{
+      body.classList.toggle('dark');
+      const isDark=body.classList.contains('dark');
+      themeIcon.classList.toggle('fa-moon',!isDark);
+      themeIcon.classList.toggle('fa-sun',isDark);
+      localStorage.setItem('theme',isDark?'dark':'light');
+    });
   }
-  themeToggle.addEventListener('click',()=>{
-    body.classList.toggle('dark');
-    const isDark=body.classList.contains('dark');
-    themeIcon.classList.toggle('fa-moon',!isDark);
-    themeIcon.classList.toggle('fa-sun',isDark);
-    localStorage.setItem('theme',isDark?'dark':'light');
-  });
 
-  const menuToggle=document.getElementById('menuToggle');
-  const mobileMenu=document.getElementById('mobileMenu');
-  menuToggle.addEventListener('click',()=>{
-    mobileMenu.classList.toggle('open');
-    const icon=menuToggle.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-xmark');
-  });
-  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
-    mobileMenu.classList.remove('open');
-    menuToggle.querySelector('i').classList.add('fa-bars');
-    menuToggle.querySelector('i').classList.remove('fa-xmark');
-  }));
+  /* 2. وضع التركيز */
+  function initFocusMode(){
+    const focusToggle=document.getElementById('focusToggle');
+    if(!focusToggle) return;
+    focusToggle.addEventListener('click',()=>{
+      body.classList.toggle('focus-mode');
+    });
+  }
 
-  const navbar=document.getElementById('navbar');
-  window.addEventListener('scroll',()=>{
-    navbar.classList.toggle('scrolled',window.scrollY>30);
-    const btn=document.getElementById('scroll-to-top');
-    btn.classList.toggle('visible',window.scrollY>500);
-  });
-  document.getElementById('scroll-to-top').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  /* 3. قائمة الجوال */
+  function initMenu(){
+    const menuToggle=document.getElementById('menuToggle');
+    const mobileMenu=document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click',()=>{
+      const isOpen = mobileMenu.classList.toggle('open');
+      const icon=menuToggle.querySelector('i');
+      icon.classList.toggle('fa-bars',!isOpen);
+      icon.classList.toggle('fa-xmark',isOpen);
+      menuToggle.setAttribute('aria-expanded',isOpen?'true':'false');
+    });
+    mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      mobileMenu.classList.remove('open');
+      const icon=menuToggle.querySelector('i');
+      icon.classList.add('fa-bars');
+      icon.classList.remove('fa-xmark');
+      menuToggle.setAttribute('aria-expanded','false');
+    }));
+  }
 
-  const cursor=document.querySelector('.cursor');
-  const dot=document.querySelector('.cursor-dot');
-  if(cursor){
+  /* 4. شريط التمرير للأعلى والنافبار */
+  function initScrollUI(){
+    const navbar=document.getElementById('navbar');
+    const scrollBtn=document.getElementById('scroll-to-top');
+    window.addEventListener('scroll',()=>{
+      navbar.classList.toggle('scrolled',window.scrollY>30);
+      scrollBtn.classList.toggle('visible',window.scrollY>500);
+    });
+    scrollBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+  }
+
+  /* 5. مؤشر الفأرة */
+  function initCursor(){
+    const cursor=document.querySelector('.cursor');
+    const dot=document.querySelector('.cursor-dot');
+    if(!cursor || !dot) return;
     window.addEventListener('mousemove',e=>{
-      cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';
-      dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';
+      cursor.style.left=e.clientX+'px';
+      cursor.style.top=e.clientY+'px';
+      dot.style.left=e.clientX+'px';
+      dot.style.top=e.clientY+'px';
     });
     document.querySelectorAll('a,button,.glass-card,.project-card').forEach(el=>{
       el.addEventListener('mouseenter',()=>cursor.classList.add('grow'));
@@ -370,97 +641,161 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
     });
   }
 
-  const phrases=['مطور ويب متكامل','مصمم واجهات مستخدم','خبير React & Node.js','مبتكر تجارب رقمية'];
-  const typingEl=document.getElementById('typing-text');
-  let pIdx=0,cIdx=0,deleting=false;
-  function type(){
-    const current=phrases[pIdx];
-    if(!deleting){
-      typingEl.textContent=current.slice(0,cIdx+1);cIdx++;
-      if(cIdx===current.length){deleting=true;setTimeout(type,1600);return;}
-    }else{
-      typingEl.textContent=current.slice(0,cIdx-1);cIdx--;
-      if(cIdx===0){deleting=false;pIdx=(pIdx+1)%phrases.length;}
+  /* 6. كتابة متحركة */
+  function initTyping(){
+    const phrases=['مطور ويب متكامل','مصمم واجهات مستخدم','خبير React & Node.js','مبتكر تجارب رقمية'];
+    const typingEl=document.getElementById('typing-text');
+    let pIdx=0,cIdx=0,deleting=false;
+    function type(){
+      const current=phrases[pIdx];
+      if(!deleting){
+        typingEl.textContent=current.slice(0,cIdx+1);cIdx++;
+        if(cIdx===current.length){deleting=true;setTimeout(type,1600);return;}
+      }else{
+        typingEl.textContent=current.slice(0,cIdx-1);cIdx--;
+        if(cIdx===0){deleting=false;pIdx=(pIdx+1)%phrases.length;}
+      }
+      setTimeout(type,deleting?45:90);
     }
-    setTimeout(type,deleting?45:90);
+    type();
   }
-  type();
 
-  const revealEls=document.querySelectorAll('.reveal');
-  const io=new IntersectionObserver((entries)=>{
-    entries.forEach((entry,i)=>{
-      if(entry.isIntersecting){
-        setTimeout(()=>entry.target.classList.add('visible'),i*80);
-        io.unobserve(entry.target);
-      }
-    });
-  },{threshold:0.15});
-  revealEls.forEach(el=>io.observe(el));
-
-  const statNumbers=document.querySelectorAll('.stat-number');
-  const statIO=new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const el=entry.target;
-        const target=parseInt(el.getAttribute('data-target'));
-        let cur=0;
-        const step=Math.max(1,Math.ceil(target/60));
-        const timer=setInterval(()=>{
-          cur+=step;
-          if(cur>=target){cur=target;clearInterval(timer);}
-          el.textContent=cur;
-        },25);
-        statIO.unobserve(el);
-      }
-    });
-  },{threshold:0.5});
-  statNumbers.forEach(el=>statIO.observe(el));
-
-  const fills=document.querySelectorAll('.progress-fill');
-  const fillIO=new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.style.width=entry.target.getAttribute('data-width')+'%';
-        fillIO.unobserve(entry.target);
-      }
-    });
-  },{threshold:0.3});
-  fills.forEach(el=>fillIO.observe(el));
-
-  const canvas=document.getElementById('particle-canvas');
-  const ctx=canvas.getContext('2d');
-  let w,h,particles=[];
-  function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
-  resize();window.addEventListener('resize',resize);
-  const colors=['#7c5cff','#00e5c7','#ff5cad'];
-  for(let i=0;i<60;i++){
-    particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+0.5,dx:(Math.random()-0.5)*0.4,dy:(Math.random()-0.5)*0.4,c:colors[Math.floor(Math.random()*colors.length)]});
+  /* 7. Reveal Animations */
+  function initRevealAnimations(){
+    const revealEls=document.querySelectorAll('.reveal');
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach((entry,i)=>{
+        if(entry.isIntersecting){
+          setTimeout(()=>entry.target.classList.add('visible'),i*80);
+          io.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.15});
+    revealEls.forEach(el=>io.observe(el));
   }
-  function animate(){
-    ctx.clearRect(0,0,w,h);
-    particles.forEach(p=>{
-      p.x+=p.dx;p.y+=p.dy;
-      if(p.x<0||p.x>w)p.dx*=-1;
-      if(p.y<0||p.y>h)p.dy*=-1;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fillStyle=p.c;
+
+  /* 8. عدّاد الإحصائيات */
+  function initStatsCounter(){
+    const statNumbers=document.querySelectorAll('.stat-number');
+    const statIO=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el=entry.target;
+          const target=parseInt(el.getAttribute('data-target'),10);
+          let cur=0;
+          const step=Math.max(1,Math.ceil(target/60));
+          const timer=setInterval(()=>{
+            cur+=step;
+            if(cur>=target){cur=target;clearInterval(timer);}
+            el.textContent=cur;
+          },25);
+          statIO.unobserve(el);
+        }
+      });
+    },{threshold:0.5});
+    statNumbers.forEach(el=>statIO.observe(el));
+  }
+
+  /* 9. تعبئة شريط المهارات */
+  function initProgressBars(){
+    const fills=document.querySelectorAll('.progress-fill');
+    const fillIO=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.style.width=entry.target.getAttribute('data-width')+'%';
+          fillIO.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.3});
+    fills.forEach(el=>fillIO.observe(el));
+  }
+
+  /* 10. الجزيئات الخلفية مع تقليل العدد على الموبايل */
+  function initParticles(){
+    const canvas=document.getElementById('particle-canvas');
+    const ctx=canvas.getContext('2d');
+    let w,h,particles=[];
+    function resize(){
+      w=canvas.width=window.innerWidth;
+      h=canvas.height=window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize',resize);
+    const colors=['#7c5cff','#00e5c7','#ff5cad'];
+    const isMobile=window.innerWidth<768;
+    const particleCount=isMobile?25:60;
+    for(let i=0;i<particleCount;i++){
+      particles.push({
+        x:Math.random()*w,
+        y:Math.random()*h,
+        r:Math.random()*2+0.5,
+        dx:(Math.random()-0.5)*0.4,
+        dy:(Math.random()-0.5)*0.4,
+        c:colors[Math.floor(Math.random()*colors.length)]
+      });
+    }
+    function animate(){
+      ctx.clearRect(0,0,w,h);
       ctx.globalAlpha=0.5;
-      ctx.fill();
-    });
-    requestAnimationFrame(animate);
+      particles.forEach(p=>{
+        p.x+=p.dx;p.y+=p.dy;
+        if(p.x<0||p.x>w)p.dx*=-1;
+        if(p.y<0||p.y>h)p.dy*=-1;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=p.c;
+        ctx.fill();
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
   }
-  animate();
 
-  const form=document.getElementById('contactForm');
-  const msg=document.getElementById('formMessage');
-  form.addEventListener('submit',e=>{
-    e.preventDefault();
-    msg.style.color='var(--accent)';
-    msg.textContent='✅ تم إرسال رسالتك بنجاح! سأتواصل معك قريبًا.';
-    form.reset();
-    setTimeout(()=>msg.textContent='',5000);
-  });
+  /* 11. نموذج التواصل مع حالة تحميل */
+  function initContactForm(){
+    const form=document.getElementById('contactForm');
+    const msg=document.getElementById('formMessage');
+    if(!form) return;
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const fullName=document.getElementById('fullName').value.trim();
+      const email=document.getElementById('email').value.trim();
+      const message=document.getElementById('message').value.trim();
+      const submitBtn=form.querySelector('button[type="submit"]');
+
+      // تحقق بسيط إضافي
+      if(fullName.length<3 || message.length<10){
+        msg.style.color='tomato';
+        msg.textContent='⚠️ الرجاء كتابة اسم ورسالة أوضح قبل الإرسال.';
+        return;
+      }
+
+      submitBtn.disabled=true;
+      submitBtn.textContent='جارٍ الإرسال...';
+
+      setTimeout(()=>{
+        msg.style.color='var(--accent)';
+        msg.textContent='✅ تم إرسال رسالتك بنجاح! سأتواصل معك قريبًا.';
+        form.reset();
+        submitBtn.disabled=false;
+        submitBtn.innerHTML='<i class="fa-solid fa-paper-plane"></i> إرسال الرسالة';
+        setTimeout(()=>msg.textContent='',5000);
+      },800);
+    });
+  }
+
+  /* تشغيل الكل */
+  initTheme();
+  initFocusMode();
+  initMenu();
+  initScrollUI();
+  initCursor();
+  initTyping();
+  initRevealAnimations();
+  initStatsCounter();
+  initProgressBars();
+  initParticles();
+  initContactForm();
 })();
 </script>
 </body>
