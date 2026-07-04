@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -38,7 +37,7 @@
   --accent-2:#ffd166;
   --bg-light:#f5f3ff;
   --bg-dark:#07070d;
-  --surface-light:rgba(255,255,255,.7); /* زيادة قليلًا لتحسين التباين */
+  --surface-light:rgba(255,255,255,.7); /* زيادة قليلًا لتحسين التباين [web:11] */
   --surface-dark:rgba(18,18,28,.7);
   --border-light:rgba(255,255,255,.55);
   --border-dark:rgba(255,255,255,.08);
@@ -49,7 +48,7 @@
   --shadow-sm:0 10px 30px rgba(30,20,60,.08);
   --shadow-md:0 20px 50px rgba(30,20,60,.14);
   --shadow-lg:0 35px 80px -20px rgba(30,20,60,.35);
-  --blur:16px; /* تخفيف قيمة البلور لأداء أفضل [web:20] */
+  --blur:16px; /* تخفيف قيمة البلور لأداء أفضل [web:23] */
   --r-xl:32px;--r-lg:24px;--r-md:16px;
   --ease:cubic-bezier(.16,1,.3,1);
   --font-head:'Lalezar','Space Grotesk',sans-serif;
@@ -72,13 +71,13 @@ body{
 body.dark{background:var(--bg-dark);color:var(--text-dark)}
 body.focus-mode .mesh-blob,
 body.focus-mode #particle-canvas{
-  display:none; /* وضع التركيز: تعطيل الخلفيات المتحركة */
+  display:none; /* وضع التركيز: تعطيل الخلفيات المتحركة [web:11] */
 }
 body.focus-mode .hero h1{
   animation:none;
 }
 
-/* خلفية الزجاجية مع fallback للشفافية وتقليلها عند تفضيل المستخدم [web:19][web:20] */
+/* خلفية الزجاجية مع fallback للشفافية وتقليلها عند تفضيل المستخدم [web:23][web:31] */
 .mesh-bg{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg-light);transition:background .6s ease}
 body.dark .mesh-bg{background:var(--bg-dark)}
 .mesh-blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:float 18s ease-in-out infinite}
@@ -91,14 +90,14 @@ body.dark .mesh-blob{opacity:.35}
 body.dark #particle-canvas{opacity:.35}
 
 /* مؤشر الفأرة */
-.cursor{width:34px;height:34px;border:2px solid var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s ease,width .3s,height .3s,border-color .3s;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:.85}
+.cursor{width:34px,height:34px;border:2px solid var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transition:transform .15s ease,width .3s,height .3s,border-color .3s;transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:.85}
 .cursor-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:transform .08s ease-out}
 .cursor.grow{width:56px;height:56px;border-color:var(--accent)}
 @media(max-width:900px){.cursor,.cursor-dot{display:none}}
 
 .container{max-width:1240px;margin:0 auto;padding:0 25px}
 
-/* الزجاجية مع fallback عند عدم دعم backdrop-filter + تفضيل تقليل الشفافية [web:19][web:20] */
+/* الزجاجية مع fallback عند عدم دعم backdrop-filter + تفضيل تقليل الشفافية [web:23][web:31] */
 .glass-surface{
   background:var(--surface-light);
   border:1px solid var(--border-light);
@@ -116,7 +115,7 @@ body.dark .glass-surface{
   }
 }
 
-/* تفضيل تقليل الشفافية [web:19][web:20] */
+/* تفضيل تقليل الشفافية [web:23][web:31] */
 @media (prefers-reduced-transparency: reduce){
   .glass-surface{
     backdrop-filter:none;
@@ -130,7 +129,7 @@ body.dark .glass-surface{
   }
 }
 
-/* تخفيف الحركة عند prefers-reduced-motion [web:11][web:12][web:18] */
+/* تخفيف الحركة عند prefers-reduced-motion [web:11][web:31] */
 @media (prefers-reduced-motion: reduce){
   *{
     animation-duration:0.001s !important;
@@ -382,7 +381,8 @@ footer .fa-heart{color:#ff5c8a;margin:0 5px}
     <p class="section-subtitle reveal">أنا مطور ويب شغوف ببناء حلول رقمية مبتكرة، أجمع بين الإبداع التقني والتصميم الجذاب لتقديم تجارب مستخدم فريدة.</p>
     <div class="about-grid">
       <div class="about-image reveal">
-        <img src="https://via.placeholder.com/320/7c5cff/ffffff?text=S.K" alt="صالح الخليفي">
+        <!-- تم استبدال الصورة الافتراضية برابط صورتك -->
+        <img src="https://i.imageupload.app/1e1adac895111ca8322b.jpeg" alt="صالح الخليفي">
       </div>
       <div class="reveal">
         <p style="font-size:1.2rem;margin-bottom:22px">
