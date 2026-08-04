@@ -1,1 +1,106 @@
-about.html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="color-scheme" content="light dark" />
+
+  <title>عن صالح الخليفي</title>
+  <meta name="description" content="نبذة عن صالح الخليفي، مطور ويب من اليمن يركز على التصميم البصري والتجربة الاحترافية." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+
+  <header class="topbar glass">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">S</span>
+      <span>صالح الخليفي</span>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="about.html">عني</a>
+      <a href="services.html">الخدمات</a>
+      <a href="projects.html">الأعمال</a>
+      <a href="contact.html">التواصل</a>
+    </nav>
+
+    <div class="actions">
+      <button id="themeBtn" class="icon-btn" aria-label="الوضع الليلي">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+      <button id="menuBtn" class="icon-btn mobile-only" aria-label="القائمة">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <div id="mobileMenu" class="mobile-menu glass">
+    <a href="index.html">الرئيسية</a>
+    <a href="about.html">عني</a>
+    <a href="services.html">الخدمات</a>
+    <a href="projects.html">الأعمال</a>
+    <a href="contact.html">التواصل</a>
+  </div>
+
+  <main>
+    <section class="section">
+      <div class="container two-col">
+        <div class="hero-card glass reveal">
+          <img src="https://i.imageupload.app/1e1adac895111ca8322b.jpeg" alt="صالح الخليفي">
+          <div>
+            <strong>صالح الخليفي</strong>
+            <span>مطور ويب إبداعي</span>
+          </div>
+        </div>
+
+        <div class="panel glass reveal">
+          <h2>من أنا</h2>
+          <p>
+            أنا صالح الخليفي، مطور ويب من اليمن أركز على بناء مواقع شخصية ومشاريع رقمية بواجهة قوية وبصرية فخمة.
+            أحب أن تكون التجربة مريحة، سريعة، وواضحة سواء على الهاتف أو الكمبيوتر.
+          </p>
+          <p>
+            أعمل على تحويل الأفكار إلى صفحات مرتبة، باستخدام تصميم نظيف، ألوان متناسقة، وحركة خفيفة تمنح المشروع شخصية مميزة.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="center-title reveal">لماذا هذا الموقع مختلف</h2>
+        <div class="grid cards">
+          <article class="card glass reveal">
+            <i class="fa-solid fa-sparkles"></i>
+            <h3>هوية بصرية قوية</h3>
+            <p>تركيز كامل على الشكل، التناسق، واللمسة الفاخرة.</p>
+          </article>
+          <article class="card glass reveal">
+            <i class="fa-solid fa-mobile-screen"></i>
+            <h3>تجاوب ذكي</h3>
+            <p>يظهر بشكل ممتاز على شاشات الجوال والكمبيوتر.</p>
+          </article>
+          <article class="card glass reveal">
+            <i class="fa-solid fa-moon"></i>
+            <h3>وضع ليلي</h3>
+            <p>ثيم داكن أنيق مع دعم التفضيل الافتراضي للنظام.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">© 2026 صالح الخليفي</footer>
+  <script src="js/script.js"></script>
+</body>
+</html>
