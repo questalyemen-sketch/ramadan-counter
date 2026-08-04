@@ -6,30 +6,22 @@
   <meta name="theme-color" content="#0b1020" />
   <meta name="color-scheme" content="light dark" />
 
-  <title>صالح الخليفي | مطور ويب إبداعي</title>
-  <meta name="description" content="صالح الخليفي، مطور ويب إبداعي من اليمن، يصمم مواقع شخصية احترافية وتجارب رقمية حديثة ومتجاوبة." />
+  <title>صالح الخليفي | مطور ويب إبداعي ومبتكر</title>
+  <meta name="description" content="صالح الخليفي، مطور ويب من اليمن، يبني تجارب رقمية احترافية باستخدام HTML وCSS وJavaScript وتصميمات حديثة." />
+  <meta name="keywords" content="صالح الخليفي, مطور ويب, Portfolio, HTML, CSS, JavaScript, اليمن" />
+
+  <meta property="og:title" content="صالح الخليفي | مطور ويب إبداعي ومبتكر" />
+  <meta property="og:description" content="موقع شخصي احترافي يعرض مهاراتي ومشاريعي وخدماتي وطرق التواصل معي." />
+  <meta property="og:type" content="website" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/styles.css">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "صالح الخليفي",
-    "jobTitle": "Full-stack Web Developer",
-    "url": "https://example.com",
-    "sameAs": [
-      "https://t.me/iSx3i",
-      "mailto:yemenfmfm@gmail.com"
-    ]
-  }
-  </script>
 </head>
 <body>
+
   <div class="bg-orb orb1"></div>
   <div class="bg-orb orb2"></div>
   <div class="bg-orb orb3"></div>
@@ -40,19 +32,20 @@
       <span>صالح الخليفي</span>
     </a>
 
-    <nav class="nav">
+    <nav class="nav" aria-label="التنقل الرئيسي">
       <a href="#home">الرئيسية</a>
       <a href="#about">عني</a>
+      <a href="#skills">المهارات</a>
       <a href="#services">الخدمات</a>
-      <a href="#projects">الأعمال</a>
+      <a href="#projects">المشاريع</a>
       <a href="#contact">التواصل</a>
     </nav>
 
     <div class="actions">
-      <button id="themeBtn" class="icon-btn" aria-label="الوضع الليلي">
+      <button id="themeBtn" class="icon-btn" aria-label="تبديل الوضع">
         <i class="fa-solid fa-moon"></i>
       </button>
-      <button id="menuBtn" class="icon-btn mobile-only" aria-label="القائمة">
+      <button id="menuBtn" class="icon-btn mobile-only" aria-label="فتح القائمة">
         <i class="fa-solid fa-bars"></i>
       </button>
     </div>
@@ -61,29 +54,33 @@
   <div id="mobileMenu" class="mobile-menu glass">
     <a href="#home">الرئيسية</a>
     <a href="#about">عني</a>
+    <a href="#skills">المهارات</a>
     <a href="#services">الخدمات</a>
-    <a href="#projects">الأعمال</a>
+    <a href="#projects">المشاريع</a>
     <a href="#contact">التواصل</a>
   </div>
 
-  <main>
-    <section id="home" class="hero section">
+  <main id="home">
+    <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <span class="pill">واجهة شخصية فاخرة</span>
-          <h1>موقع شخصي<br>بهوية بصرية استثنائية</h1>
-          <p>تصميم متجاوب، وضع ليلي ذكي، وحركات سلسة تمنح الموقع حضورًا احترافيًا على الهاتف والكمبيوتر.</p>
+          <span class="pill"><i class="fa-solid fa-sparkles"></i> مطور ويب إبداعي</span>
+          <h1>صالح الخليفي</h1>
+          <p>
+            أبني مواقع شخصية وواجهات احترافية تجمع بين الجمال، السرعة، والتنظيم،
+            وأحوّل الفكرة إلى تجربة رقمية واضحة ومميزة.
+          </p>
           <div class="cta">
-            <a class="btn primary" href="#projects">استعرض الأعمال</a>
-            <a class="btn ghost" href="#contact">تواصل معي</a>
+            <a class="btn primary" href="#projects"><i class="fa-solid fa-rocket"></i> شاهد أعمالي</a>
+            <a class="btn ghost" href="#contact"><i class="fa-solid fa-paper-plane"></i> تواصل معي</a>
           </div>
         </div>
 
         <div class="hero-card glass reveal">
           <img src="https://i.imageupload.app/1e1adac895111ca8322b.jpeg" alt="صالح الخليفي">
           <div>
-            <strong>صالح الخليفي</strong>
-            <span>مطور ويب</span>
+            <strong>Full-Stack Web Developer</strong>
+            <span>واجهة قوية · تنظيم ممتاز · لمسات احترافية</span>
           </div>
         </div>
       </div>
@@ -93,14 +90,78 @@
       <div class="container two-col">
         <div class="panel glass reveal">
           <h2>من أنا</h2>
-          <p>أنا صالح الخليفي، أركز على بناء واجهات نظيفة، سريعة، ومريحة بصريًا مع اهتمام كبير بالتفاصيل.</p>
+          <p>
+            أنا صالح الخليفي، مطور ويب من اليمن أركز على بناء مواقع شخصية ومشاريع رقمية بواجهة قوية وبصرية فخمة.
+            أحب أن تكون التجربة مريحة، سريعة، وواضحة على كل الأجهزة.
+          </p>
+          <p>
+            أعمل على تحويل الأفكار إلى صفحات مرتبة، باستخدام تصميم نظيف، ألوان متناسقة، وحركة خفيفة تمنح المشروع شخصية مميزة.
+          </p>
         </div>
 
-        <div class="stats reveal">
-          <div class="stat glass"><b>5+</b><span>سنوات</span></div>
-          <div class="stat glass"><b>40+</b><span>مشروع</span></div>
-          <div class="stat glass"><b>30+</b><span>عميل</span></div>
-          <div class="stat glass"><b>12+</b><span>تقنية</span></div>
+        <div class="panel glass reveal">
+          <h2>مميزات العمل</h2>
+          <div class="stats">
+            <div class="stat glass">
+              <b>5+</b>
+              <span>سنوات خبرة</span>
+            </div>
+            <div class="stat glass">
+              <b>40+</b>
+              <span>مشروع مكتمل</span>
+            </div>
+            <div class="stat glass">
+              <b>30+</b>
+              <span>عميل سعيد</span>
+            </div>
+            <div class="stat glass">
+              <b>12+</b>
+              <span>تقنية رئيسية</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h2 class="center-title reveal">المهارات التقنية</h2>
+        <div class="grid cards">
+          <article class="card glass reveal">
+            <i class="fa-brands fa-html5"></i>
+            <h3>HTML5 & CSS3</h3>
+            <p>بناء هياكل دلالية قوية وتصميمات متجاوبة وأنماط حديثة.</p>
+          </article>
+
+          <article class="card glass reveal">
+            <i class="fa-brands fa-js"></i>
+            <h3>JavaScript</h3>
+            <p>إضافة التفاعل والأنيميشن الذكي وتجربة استخدام سلسة.</p>
+          </article>
+
+          <article class="card glass reveal">
+            <i class="fa-brands fa-react"></i>
+            <h3>React</h3>
+            <p>تطوير واجهات منظمة وقابلة للتوسع للمشاريع الحديثة.</p>
+          </article>
+
+          <article class="card glass reveal">
+            <i class="fa-solid fa-server"></i>
+            <h3>Node.js</h3>
+            <p>بناء منطق خلفي مرن وواجهات API متينة وخفيفة.</p>
+          </article>
+
+          <article class="card glass reveal">
+            <i class="fa-solid fa-database"></i>
+            <h3>Databases</h3>
+            <p>التعامل مع قواعد البيانات وتخطيط البيانات بكفاءة.</p>
+          </article>
+
+          <article class="card glass reveal">
+            <i class="fa-solid fa-pen-nib"></i>
+            <h3>UI/UX</h3>
+            <p>تصميم تجربة جذابة وواضحة تعكس هوية احترافية.</p>
+          </article>
         </div>
       </div>
     </section>
@@ -110,19 +171,39 @@
         <h2 class="center-title reveal">الخدمات</h2>
         <div class="grid cards">
           <article class="card glass reveal">
-            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <i class="fa-solid fa-palette"></i>
             <h3>تصميم واجهات</h3>
-            <p>واجهات حديثة وفخمة متوافقة مع جميع الأجهزة.</p>
+            <p>تصميم واجهات فخمة وواضحة تعطي الموقع شخصية قوية.</p>
           </article>
+
+          <article class="card glass reveal">
+            <i class="fa-solid fa-code"></i>
+            <h3>تطوير صفحات</h3>
+            <p>تحويل التصميم إلى كود نظيف وسريع ومنظم.</p>
+          </article>
+
+          <article class="card glass reveal">
+            <i class="fa-solid fa-bolt"></i>
+            <h3>تحسين الأداء</h3>
+            <p>تقليل الحمل وتحسين السرعة وتجربة التصفح.</p>
+          </article>
+
           <article class="card glass reveal">
             <i class="fa-solid fa-mobile-screen-button"></i>
             <h3>تجاوب كامل</h3>
-            <p>تصميم تلقائي ينسجم مع الهاتف والكمبيوتر.</p>
+            <p>تنسيق ذكي مع الجوال والتابلت والكمبيوتر.</p>
           </article>
+
           <article class="card glass reveal">
             <i class="fa-solid fa-moon"></i>
             <h3>الوضع الليلي</h3>
-            <p>ثيم داكن أنيق مع حفظ الاختيار تلقائيًا.</p>
+            <p>واجهة داكنة أنيقة مع تفضيل ثابت للمستخدم.</p>
+          </article>
+
+          <article class="card glass reveal">
+            <i class="fa-solid fa-layer-group"></i>
+            <h3>هيكلة المشروع</h3>
+            <p>تنظيم الملفات والصفحات بشكل احترافي وسهل التطوير.</p>
           </article>
         </div>
       </div>
@@ -130,29 +211,29 @@
 
     <section id="projects" class="section">
       <div class="container">
-        <h2 class="center-title reveal">الأعمال</h2>
+        <h2 class="center-title reveal">المشاريع</h2>
         <div class="grid projects">
           <article class="project glass reveal">
-            <div class="project-icon"><i class="fa-solid fa-code"></i></div>
+            <div class="project-icon"><i class="fa-solid fa-briefcase"></i></div>
             <div>
               <h3>موقع شخصي فاخر</h3>
-              <p>بنية منظمة وتجربة استخدام قوية.</p>
+              <p>موقع بتصميم قوي، أقسام واضحة، وتفاصيل بصرية جذابة.</p>
             </div>
           </article>
 
           <article class="project glass reveal">
-            <div class="project-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="project-icon"><i class="fa-solid fa-display"></i></div>
             <div>
               <h3>واجهة أعمال</h3>
-              <p>تصميم مخصص يعرض الهوية بشكل جذاب.</p>
+              <p>صفحة تعريفية احترافية مع تنظيم ممتاز للمحتوى.</p>
             </div>
           </article>
 
           <article class="project glass reveal">
-            <div class="project-icon"><i class="fa-solid fa-bolt"></i></div>
+            <div class="project-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
             <div>
-              <h3>أداء سريع</h3>
-              <p>ملفات منفصلة وخفة في التحميل.</p>
+              <h3>تأثيرات تفاعلية</h3>
+              <p>أنيميشن خفيفة ولمسات حديثة تحسن الانطباع العام.</p>
             </div>
           </article>
         </div>
@@ -161,20 +242,30 @@
 
     <section id="contact" class="section">
       <div class="container contact-wrap glass reveal">
-        <h2 class="center-title">التواصل</h2>
+        <h2>التواصل</h2>
+        <p>
+          إذا كنت تريد موقعًا شخصيًا أو واجهة احترافية أو تحسينًا بصريًا لمشروعك، يمكنك مراسلتي مباشرة.
+        </p>
+
         <div class="contact-links">
           <a href="https://t.me/iSx3i" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-telegram"></i> @iSx3i
+            <i class="fa-brands fa-telegram"></i> تلغرام
           </a>
           <a href="mailto:yemenfmfm@gmail.com">
-            <i class="fa-solid fa-envelope"></i> yemenfmfm@gmail.com
+            <i class="fa-solid fa-envelope"></i> البريد الإلكتروني
+          </a>
+          <a href="https://wa.me/967774033125" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp"></i> واتساب
           </a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer">© 2026 صالح الخليفي</footer>
+  <footer class="footer">
+    © 2026 صالح الخليفي · صُنع بحب
+  </footer>
+
   <script src="js/script.js"></script>
 </body>
 </html>
