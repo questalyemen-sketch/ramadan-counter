@@ -1,5 +1,5 @@
 :root{
-  color-scheme: dark;
+  color-scheme: light dark;
   --bg:#0b1020;
   --bg-2:#11172a;
   --surface:rgba(255,255,255,.08);
@@ -37,10 +37,10 @@ body{
   color:var(--text);
   overflow-x:hidden;
   transition:background .35s ease,color .35s ease;
+  min-height:100vh;
 }
 
 body.light{
-  color-scheme: light;
   --bg:#f4f7ff;
   --bg-2:#ffffff;
   --surface:rgba(255,255,255,.72);
@@ -86,6 +86,7 @@ textarea{
 
 .section{
   padding:92px 0;
+  position:relative;
 }
 
 .bg-orb{
@@ -229,7 +230,6 @@ textarea{
   padding:12px 10px;
   border-radius:14px;
   color:var(--text);
-  background:transparent;
 }
 
 .mobile-menu a:hover{
@@ -385,7 +385,7 @@ body.light .hero h1{
 }
 
 .panel p{
-  margin:0;
+  margin:0 0 14px;
   color:var(--muted);
   line-height:1.9;
   font-size:1.02rem;
@@ -481,6 +481,13 @@ body.light .hero h1{
 
 .contact-wrap{
   text-align:center;
+}
+
+.contact-wrap p{
+  color:var(--muted);
+  max-width:60ch;
+  margin:0 auto 22px;
+  line-height:1.9;
 }
 
 .contact-links{
